@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SingUpPanel));
             this.GoToLogin = new System.Windows.Forms.Label();
             this.SignUpButton = new System.Windows.Forms.Button();
             this.ShowPasswordCheckBox = new System.Windows.Forms.CheckBox();
@@ -42,6 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // GoToLogin
@@ -49,7 +51,7 @@
             this.GoToLogin.BackColor = System.Drawing.Color.Transparent;
             this.GoToLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.GoToLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.GoToLogin.ForeColor = System.Drawing.Color.MediumPurple;
+            this.GoToLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
             this.GoToLogin.Location = new System.Drawing.Point(32, 614);
             this.GoToLogin.Name = "GoToLogin";
             this.GoToLogin.Size = new System.Drawing.Size(157, 24);
@@ -59,7 +61,7 @@
             // 
             // SignUpButton
             // 
-            this.SignUpButton.BackColor = System.Drawing.Color.MediumPurple;
+            this.SignUpButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
             this.SignUpButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.SignUpButton.Font = new System.Drawing.Font("Ebrima", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.SignUpButton.ForeColor = System.Drawing.Color.White;
@@ -69,6 +71,7 @@
             this.SignUpButton.TabIndex = 33;
             this.SignUpButton.Text = "SIGN UP";
             this.SignUpButton.UseVisualStyleBackColor = false;
+            this.SignUpButton.Click += new System.EventHandler(this.SignUpButton_Click);
             // 
             // ShowPasswordCheckBox
             // 
@@ -87,12 +90,12 @@
             // PasswordTextBox
             // 
             this.PasswordTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.PasswordTextBox.Font = new System.Drawing.Font("Modern No. 20", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PasswordTextBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.PasswordTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
             this.PasswordTextBox.Location = new System.Drawing.Point(43, 458);
-            this.PasswordTextBox.Multiline = true;
+            this.PasswordTextBox.MaxLength = 20;
             this.PasswordTextBox.Name = "PasswordTextBox";
-            this.PasswordTextBox.Size = new System.Drawing.Size(454, 38);
+            this.PasswordTextBox.Size = new System.Drawing.Size(454, 39);
             this.PasswordTextBox.TabIndex = 30;
             // 
             // haslo
@@ -124,7 +127,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Stencil", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.MediumPurple;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
             this.label1.Location = new System.Drawing.Point(92, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(345, 57);
@@ -134,45 +137,45 @@
             // LoginTextBox
             // 
             this.LoginTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LoginTextBox.Font = new System.Drawing.Font("Modern No. 20", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LoginTextBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LoginTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
             this.LoginTextBox.Location = new System.Drawing.Point(43, 375);
-            this.LoginTextBox.Multiline = true;
+            this.LoginTextBox.MaxLength = 20;
             this.LoginTextBox.Name = "LoginTextBox";
-            this.LoginTextBox.Size = new System.Drawing.Size(454, 38);
+            this.LoginTextBox.Size = new System.Drawing.Size(454, 39);
             this.LoginTextBox.TabIndex = 36;
             // 
             // PeselTextBox
             // 
             this.PeselTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.PeselTextBox.Font = new System.Drawing.Font("Modern No. 20", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PeselTextBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.PeselTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
             this.PeselTextBox.Location = new System.Drawing.Point(43, 285);
-            this.PeselTextBox.Multiline = true;
+            this.PeselTextBox.MaxLength = 11;
             this.PeselTextBox.Name = "PeselTextBox";
-            this.PeselTextBox.Size = new System.Drawing.Size(454, 38);
+            this.PeselTextBox.Size = new System.Drawing.Size(454, 39);
             this.PeselTextBox.TabIndex = 37;
             // 
             // NazwiskoTextBox
             // 
             this.NazwiskoTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.NazwiskoTextBox.Font = new System.Drawing.Font("Modern No. 20", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.NazwiskoTextBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.NazwiskoTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
             this.NazwiskoTextBox.Location = new System.Drawing.Point(43, 195);
-            this.NazwiskoTextBox.Multiline = true;
+            this.NazwiskoTextBox.MaxLength = 20;
             this.NazwiskoTextBox.Name = "NazwiskoTextBox";
-            this.NazwiskoTextBox.Size = new System.Drawing.Size(454, 38);
+            this.NazwiskoTextBox.Size = new System.Drawing.Size(454, 39);
             this.NazwiskoTextBox.TabIndex = 38;
             // 
             // ImieTextBox
             // 
             this.ImieTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ImieTextBox.Font = new System.Drawing.Font("Modern No. 20", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ImieTextBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ImieTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
             this.ImieTextBox.Location = new System.Drawing.Point(43, 112);
-            this.ImieTextBox.Multiline = true;
+            this.ImieTextBox.MaxLength = 20;
             this.ImieTextBox.Name = "ImieTextBox";
-            this.ImieTextBox.Size = new System.Drawing.Size(454, 38);
+            this.ImieTextBox.Size = new System.Drawing.Size(454, 39);
             this.ImieTextBox.TabIndex = 39;
             // 
             // label2
@@ -211,13 +214,22 @@
             this.label5.TabIndex = 42;
             this.label5.Text = "Pesel";
             // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox1.Location = new System.Drawing.Point(533, -5);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(10, 9);
+            this.textBox1.TabIndex = 43;
+            // 
             // SingUpPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::ProjektZUS.Properties.Resources.stone_texture_skalowacz_pl;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(536, 662);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -257,5 +269,6 @@
         private Label label2;
         private Label label4;
         private Label label5;
+        private TextBox textBox1;
     }
 }

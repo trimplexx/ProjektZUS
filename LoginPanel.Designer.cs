@@ -36,10 +36,10 @@
             this.ShowPasswordCheckBox = new System.Windows.Forms.CheckBox();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
             this.haslo = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.LoginTextBox = new System.Windows.Forms.TextBox();
             this.login = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -50,7 +50,7 @@
             this.GoToSingUp.BackColor = System.Drawing.Color.Transparent;
             this.GoToSingUp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.GoToSingUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.GoToSingUp.ForeColor = System.Drawing.Color.MediumPurple;
+            this.GoToSingUp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
             this.GoToSingUp.Location = new System.Drawing.Point(54, 598);
             this.GoToSingUp.Name = "GoToSingUp";
             this.GoToSingUp.Size = new System.Drawing.Size(108, 20);
@@ -72,7 +72,7 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.MediumPurple;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Ebrima", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button1.ForeColor = System.Drawing.Color.White;
@@ -82,6 +82,7 @@
             this.button1.TabIndex = 22;
             this.button1.Text = "LOGIN";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.LoginButton);
             // 
             // pictureBox2
             // 
@@ -110,12 +111,12 @@
             // PasswordTextBox
             // 
             this.PasswordTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.PasswordTextBox.Font = new System.Drawing.Font("Modern No. 20", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PasswordTextBox.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.PasswordTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
             this.PasswordTextBox.Location = new System.Drawing.Point(80, 302);
-            this.PasswordTextBox.Multiline = true;
+            this.PasswordTextBox.MaxLength = 20;
             this.PasswordTextBox.Name = "PasswordTextBox";
-            this.PasswordTextBox.Size = new System.Drawing.Size(423, 49);
+            this.PasswordTextBox.Size = new System.Drawing.Size(423, 45);
             this.PasswordTextBox.TabIndex = 19;
             // 
             // haslo
@@ -130,25 +131,15 @@
             this.haslo.TabIndex = 18;
             this.haslo.Text = "Hasło";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(30, 211);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(49, 49);
-            this.pictureBox1.TabIndex = 17;
-            this.pictureBox1.TabStop = false;
-            // 
             // LoginTextBox
             // 
             this.LoginTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LoginTextBox.Font = new System.Drawing.Font("Modern No. 20", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LoginTextBox.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LoginTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
             this.LoginTextBox.Location = new System.Drawing.Point(80, 211);
-            this.LoginTextBox.Multiline = true;
+            this.LoginTextBox.MaxLength = 20;
             this.LoginTextBox.Name = "LoginTextBox";
-            this.LoginTextBox.Size = new System.Drawing.Size(423, 49);
+            this.LoginTextBox.Size = new System.Drawing.Size(423, 45);
             this.LoginTextBox.TabIndex = 16;
             // 
             // login
@@ -168,12 +159,22 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Stencil", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.MediumPurple;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
             this.label1.Location = new System.Drawing.Point(122, 74);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(289, 57);
             this.label1.TabIndex = 14;
             this.label1.Text = "Logowanie";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(30, 211);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(49, 49);
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
             // 
             // LoginPanel
             // 
@@ -213,9 +214,9 @@
         private CheckBox ShowPasswordCheckBox;
         private TextBox PasswordTextBox;
         private Label haslo;
-        private PictureBox pictureBox1;
         private TextBox LoginTextBox;
         private Label login;
         private Label label1;
+        private PictureBox pictureBox1;
     }
 }
