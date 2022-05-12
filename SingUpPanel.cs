@@ -13,20 +13,24 @@ namespace ProjektZUS
 {
     public partial class SingUpPanel : Form
     {
+        //string odpowiadający za połaczenie z lokalną bazą danych
         public string connectionSting = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=UserRegistrationDB; Integrated Security=true;";
 
         public SingUpPanel()
         {
             InitializeComponent();
+            //ukrycie hasła od początku programu
             PasswordTextBox.PasswordChar = '*';
         }
 
+        //label przechodządzy do panelu logowania
         private void GoToLogin_Click(object sender, EventArgs e)
         {
             new LoginPanel().Show();
             this.Hide();
         }
 
+        // Przycisk obsługujący wyświetlanie bądź ukrywanie hasła
         public void ShowPasswordCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (ShowPasswordCheckBox.Checked)
@@ -38,6 +42,7 @@ namespace ProjektZUS
         
         private void SignUpButton_Click(object sender, EventArgs e)
         {
+            //połączenie z bazą danych
             using (SqlConnection con = new SqlConnection(connectionSting))
             {
                 // walidacja długości peselu oraz pól
@@ -53,12 +58,12 @@ namespace ProjektZUS
                     // Deklaracja komendy dodawania do tabeli w bazie danych
                     SqlCommand sqlCmd = new SqlCommand("UserAdd", con);
 
-                    //Deklaracja komend do walidacji danych z bazy danych
+                    //Deklaracja komend do walidacji danych z bazy danych dla peselu oraz nazwy użytkownika.
                     SqlCommand sqlCmdPesel = new SqlCommand($"select * from tabUser where Username='{LoginTextBox.Text}' or Pesel='{PeselTextBox.Text}'", con);
                     SqlDataReader dr = sqlCmdPesel.ExecuteReader();
                     sqlCmd.CommandType = CommandType.StoredProcedure;
 
-                    //walidacja numeru pesel
+                    //walidacja numeru pesel oraz nazwy użytkownika, gdyż ta z założenia nie może się powtarzać
                     if (dr.Read())
                     {
                         MessageBox.Show("Podany numer pesel, bądź nazwa użytkownika już istnieje", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -67,6 +72,7 @@ namespace ProjektZUS
                     else
                     {
                         dr.Close();
+                        // wczytywanie danych rejestracji do bazy danych z pominięciem pustych znaków
                         sqlCmd.Parameters.AddWithValue("@Imie", ImieTextBox.Text.Trim());
                         sqlCmd.Parameters.AddWithValue("@Nazwisko", NazwiskoTextBox.Text.Trim());
                         sqlCmd.Parameters.AddWithValue("@Pesel", PeselTextBox.Text.Trim());
