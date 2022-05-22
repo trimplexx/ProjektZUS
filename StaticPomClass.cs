@@ -19,7 +19,8 @@ namespace ProjektZUS
         { get; set; }
         public static string PeselPrac
         { get; set; }
-        public static int WorkerID
+        public static int[] WorkerID = new int[300];
+        public static int Index
         { get; set; }
     }
 }

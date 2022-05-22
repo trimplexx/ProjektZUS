@@ -25,8 +25,8 @@ namespace ProjektZUS.Zakładki
         {
             using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
             {
-                if (ImieTextBox.MaxLength == 0 || NazwiskoTextBox.MaxLength == 0 || PeselTextBox.MaxLength < 11 ||
-                    DowodTextBox.MaxLength == 0 || BruttoTextBox.MaxLength == 0)
+                if (ImieTextBox.TextLength == 0 || NazwiskoTextBox.TextLength == 0 || PeselTextBox.TextLength < 11 ||
+                    DowodTextBox.TextLength == 0 || BruttoTextBox.TextLength == 0)
                 {
                     MessageBox.Show("Podany numer pesel jest za krótki, bądź któreś pole nie zostało uzupełnione", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);

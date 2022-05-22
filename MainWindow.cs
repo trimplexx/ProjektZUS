@@ -27,7 +27,7 @@ namespace ProjektZUS
         */
         private void OpenNewPanel(Form newPanel, object btnSender)
         {
-            if (activePanel!= null)
+            if (activePanel != null)
             {
                 activePanel.Close();
             }
@@ -106,6 +106,10 @@ namespace ProjektZUS
          */
         private void AddWorker_Click(object sender, EventArgs e)
         {
+            if(_numerOfWorkers >  299)
+            {
+                AddWorker.Enabled = false;
+            }
             OpenNewPanel(new Zakładki.Pracownik(), sender);
             titleLabel.Text = "Nowy Pracownik";
         }
@@ -129,56 +133,72 @@ namespace ProjektZUS
 
         private void WorkersOnList()
         {
-            //czyszczenie listy itemów
+            //czyszczenie listy itemów oraz tablicy ID pracowników 
             MenuPracownikow.Items.Clear();
+            Array.Clear(StaticPomClass.WorkerID);
+
             //deklaracja tablicy obiektów zgodna z liczbą pracowników w bazie danych
             ToolStripMenuItem[] workerToolStripMenuItem = new ToolStripMenuItem[_numerOfWorkers];
 
-            // Pętla tworząca odpowiednią ilość itemów oraz przypisywanie im metody odpowiadającej za kliknięcie
-            for (int i =0; i < _numerOfWorkers;i++)
+            using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
+            {
+                con.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                // Podany string ustawia wszystkie komórki w pomocniczej kolumnie dla pracowników danego użytkownika na wartość 'a'
+                string sql = $"Update tabWorker set PomNum='a'WHERE UserIDPrac='{StaticPomClass.UserID}'";
+                SqlCommand sqlCmd2 = new SqlCommand(sql, con);
+                adapter.UpdateCommand = new SqlCommand(sql, con);
+                adapter.UpdateCommand.ExecuteNonQuery();
+                sqlCmd2.Dispose();
+            }
+            // Pętla wykonywana jest tyle razy ilu zliczy pracowników użytkownika
+            for (int i = 0; i < _numerOfWorkers; i++)
             {
                 using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
                 {
                     con.Open();
-                    SqlCommand sqlCmd = new SqlCommand($"SELECT ImiePrac, NazwiskoPrac, PeselPrac FROM tabWorker WHERE UserIDPrac='{StaticPomClass.UserID}'", con);
+
+                    // String wybiera zmienne pierwszego napotkanego pracownika w tabeli, któremu odpowiada numerID użytkownika oraz zmienna pomocnicza
+                    SqlCommand sqlCmd = new SqlCommand($"SELECT ImiePrac, NazwiskoPrac, PeselPrac, WorkerID FROM tabWorker WHERE UserIDPrac=" +
+                        $"'{StaticPomClass.UserID}' and PomNum='a'", con);
                     SqlDataReader reader = sqlCmd.ExecuteReader();
                     if (reader.Read())
                     {
                         StaticPomClass.ImiePracownika = reader.GetString(0);
                         StaticPomClass.NaziwskoPracownika = reader.GetString(1);
                         StaticPomClass.PeselPrac = reader.GetString(2);
+                        StaticPomClass.WorkerID[i] = reader.GetInt32(3);
                         reader.Close();
+
+                        // Zmienna pomocnicza następnie ulega zmianie aby ciągle nie był brany ten sam pracownik
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        string sql = $"Update tabWorker set PomNum='z' where ImiePrac='{StaticPomClass.ImiePracownika}' and" +
+                            $" NazwiskoPrac='{StaticPomClass.NaziwskoPracownika}' and PeselPrac='{StaticPomClass.PeselPrac}'";
+                        SqlCommand sqlCmd2 = new SqlCommand(sql, con);
+                        adapter.UpdateCommand = new SqlCommand(sql, con);
+                        adapter.UpdateCommand.ExecuteNonQuery();
+                        sqlCmd2.Dispose();
                         con.Close();
                     }
                 }
+                /* Tworzenie MenuItemów wysuwanych w przypadku kliknięcia przycisku 'pracownicy' w MainWindow, Przycisków zostanie utworzona taka ilość,
+                 * ile zostało znalezionych pracowników dla danego użytkownika. Do Każdego Itemu przypisane zostaje zczytane imie oraz nazwisko oraz 
+                 * metoda odpowiadająca za jego kliknięcie.
+                 */
                 workerToolStripMenuItem[i] = new ToolStripMenuItem($"{StaticPomClass.ImiePracownika}" +
-                    $" {StaticPomClass.NaziwskoPracownika}", null, null, $"Pracownik{i}");
+                    $" {StaticPomClass.NaziwskoPracownika}", null, WorkerToolStripMenuItem_Click, $"Pracownik{i}");
                 MenuPracownikow.Items.Add(workerToolStripMenuItem[i]);
-                workerToolStripMenuItem[i].PerformClick();
-                workerToolStripMenuItem[i].Click += WorkerToolStripMenuItem_Click;
-            }
-            
-            for (int i = 0; i<_numerOfWorkers;i++)
-            {
-                workerToolStripMenuItem[i].Text = $"{StaticPomClass.ImiePracownika} {StaticPomClass.NaziwskoPracownika}";
             }
         }
 
+        // Obsługa przycisku wcześniej tworzonych MenuItemów 
         private void WorkerToolStripMenuItem_Click(object? sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
+            // Numer wciśniętego przycisku zostanie wysłany do zmiennej, która będzie wskazywała index danych pracowników
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            if (item != null)
             {
-                con.Open();
-                SqlCommand sqlCmd = new SqlCommand($"SELECT WorkerID FROM tabWorker WHERE UserIDPrac='{StaticPomClass.UserID}'" +
-                    $" and ImiePrac='{StaticPomClass.ImiePracownika}' and NazwiskoPrac='{StaticPomClass.NaziwskoPracownika}'" +
-                    $" and PeselPrac='{StaticPomClass.PeselPrac}'", con);
-                SqlDataReader reader = sqlCmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    StaticPomClass.WorkerID = reader.GetInt32(0);
-                    reader.Close();
-                    con.Close();
-                }
+                StaticPomClass.Index = MenuPracownikow.Items.IndexOf(item);
             }
             OpenNewPanel(new Zakładki.EdycjaPracownika(), sender);
             titleLabel.Text = "Profil Pracownika";

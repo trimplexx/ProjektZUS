@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Pass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\Pass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="user-2861" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\user-286.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -129,6 +132,9 @@
   </data>
   <data name="OOjs_UI_icon_userAvatar2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\OOjs_UI_icon_userAvatar.svg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="user" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\user.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="OOjs_UI_icon_userAvatar.svg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\OOjs_UI_icon_userAvatar.svg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -154,13 +160,16 @@
   <data name="f" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="fdd5d69a3cf74d3171fda4d2dc7e707c" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Graphics\fdd5d69a3cf74d3171fda4d2dc7e707c.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Bez nazwy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\Bez nazwy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="próba3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\próba3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Bez nazwy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Graphics\Bez nazwy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="fdd5d69a3cf74d3171fda4d2dc7e707c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\fdd5d69a3cf74d3171fda4d2dc7e707c.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pngkit_png-png_2354885" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\pngkit_png-png_2354885.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

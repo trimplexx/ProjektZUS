@@ -18,13 +18,15 @@ namespace ProjektZUS.Zakładki
             InitializeComponent();
             Dane();
         }
+        //wyświetlanie danych pracownika 
         public void Dane()
         {
             using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
             {
                 con.Open();
+                // Przekazanie ID pracownika z tablicy, pod odpowiednim indexem wysłanym przez sender przycisku
                 SqlCommand sqlCmd = new SqlCommand($"select ImiePrac, NazwiskoPrac, PeselPrac, DowodPrac, BruttoPrac " +
-                    $"from tabWorker where WorkerID='{StaticPomClass.WorkerID}'", con);
+                    $"from tabWorker where WorkerID='{StaticPomClass.WorkerID[StaticPomClass.Index]}'", con);
                 SqlDataReader reader = sqlCmd.ExecuteReader();
                 if (reader.Read())
                 {
@@ -44,6 +46,7 @@ namespace ProjektZUS.Zakładki
             }
         }
 
+        // Zapisanie zmian wprowadzonych dla pracownika
         private void SaveChanges_Click(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
@@ -67,7 +70,7 @@ namespace ProjektZUS.Zakładki
                     string sql = $"Update tabWorker set ImiePrac='{ImieTextBox.Text}'," +
                         $"NazwiskoPrac='{NazwiskoTextBox.Text}', PeselPrac='{PeselTextBox.Text}'," +
                         $"DowodPrac='{DowodTextBox.Text}', BruttoPrac='{BruttoTextBox.Text}' " +
-                        $"where WorkerID='{StaticPomClass.WorkerID}'";
+                        $"where WorkerID='{StaticPomClass.WorkerID[StaticPomClass.Index]}'";
                     SqlCommand sqlCmd = new SqlCommand(sql, con);
                     adapter.UpdateCommand = new SqlCommand(sql, con);
                     adapter.UpdateCommand.ExecuteNonQuery();
@@ -80,9 +83,24 @@ namespace ProjektZUS.Zakładki
             }
         }
 
+        /* Metoda odpowiada za usuwanie wybranego pracownika (obsługuje przycisk usuń)
+         */
         private void DeleteWorker_Click(object sender, EventArgs e)
         {
-
+            using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
+            {
+               
+                DialogResult result = MessageBox.Show("Czy na pewno chcesz usunąć pracownika?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    con.Open();
+                    SqlCommand sqlCmd = new SqlCommand($"Delete from tabWorker where WorkerID='{StaticPomClass.WorkerID[StaticPomClass.Index]}'", con);
+                    SqlDataReader reader = sqlCmd.ExecuteReader();
+                    reader.Close();
+                    con.Close();
+                    this.Hide();
+                }
+            }
         }
     }
 }
