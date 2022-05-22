@@ -13,9 +13,6 @@ namespace ProjektZUS
 {
     public partial class SingUpPanel : Form
     {
-        //string odpowiadający za połaczenie z lokalną bazą danych
-        public string connectionSting = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=UserRegistrationDB; Integrated Security=true;";
-
         public SingUpPanel()
         {
             InitializeComponent();
@@ -43,7 +40,7 @@ namespace ProjektZUS
         private void SignUpButton_Click(object sender, EventArgs e)
         {
             //połączenie z bazą danych
-            using (SqlConnection con = new SqlConnection(connectionSting))
+            using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
             {
                 // walidacja długości peselu oraz pól
                 if(PeselTextBox.TextLength < 11 || ImieTextBox.TextLength == 0 || NazwiskoTextBox.TextLength == 0 || 

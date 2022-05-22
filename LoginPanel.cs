@@ -14,20 +14,21 @@ namespace ProjektZUS
 {
     public partial class LoginPanel : Form
     {
-        public string connectionSting = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=UserRegistrationDB; Integrated Security=true;";
 
         public LoginPanel()
         {
             InitializeComponent();
-            PasswordTextBox.PasswordChar = '*';
+            PasswordTextBox.PasswordChar = '*'; //ukrycie has³a
         }
 
+        // wyœwietlenie panelu rejestracji po klikniêci 'zajestruj siê'
         private void GoToSingUp_Click(object sender, EventArgs e)
         {
             new SingUpPanel().Show();
             this.Hide();
         }
 
+        // checkBox obs³uguj¹cy ukrycie oraz pokazanie siê has³a
         public void ShowPasswordCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if(ShowPasswordCheckBox.Checked)
@@ -38,20 +39,36 @@ namespace ProjektZUS
 
         }
 
+        /* Metoda obs³uguje przycisk 'Login' poprzez, który wyszukiwana jest nazwa u¿ytkownika oraz has³o
+         * pasuj¹ce do za³o¿onych wczeœniej kont. Po udanym logowaniu zostaje otworzone g³ówne okno programu.
+         */
         private void LoginButton(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(connectionSting))
+            using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
             {
                 con.Open();
-                SqlCommand sqlCmd = new SqlCommand("select * from tabUser where Username='" + LoginTextBox.Text + "' and Haslo='" + PasswordTextBox.Text + "'", con);
-                SqlDataReader  dr = sqlCmd.ExecuteReader();
-                if (dr.Read())
+                // Komenda sql odpowiadaj¹ca za wyszukiwanie pasuj¹cego u¿ytkownika i jego has³a
+                SqlCommand sqlCmd = new SqlCommand($"select * from tabUser where Username='{LoginTextBox.Text}' and Haslo='{PasswordTextBox.Text}'", con);
+                SqlDataReader dr = sqlCmd.ExecuteReader();
+                if (dr.Read()) // gdy uda³o siê znaleŸ pasuj¹ce dane
                 {
+                    
                     dr.Close();
+                    /* zapisanie userID przy pomocy loginudo zmiennej statycznej potrzebnej w póŸniejszym 
+                     * odwo³ywaniu siê w oknach
+                     */
+                    SqlCommand sqlCmdID = new SqlCommand($"select UserID from tabUser where Username='{LoginTextBox.Text}'", con);
+                    SqlDataReader reader = sqlCmdID.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        StaticPomClass.UserID = reader.GetInt32(0);
+                        reader.Close();
+                    }
+                    // otworzenie g³ównego okna programu
                     new MainWindow().Show();
                     this.Hide();
                 }
-                else
+                else // gdy nie uda³o siê znaleŸæ pasuj¹cych danych
                 {
                     dr.Close();
                     MessageBox.Show("Wprowadzono zle dane", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

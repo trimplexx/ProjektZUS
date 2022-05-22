@@ -73,9 +73,29 @@ namespace ProjektZUS.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1024px_OOjs_UI_icon_logOut_ltr_svg {
+            get {
+                object obj = ResourceManager.GetObject("1024px-OOjs_UI_icon_logOut-ltr.svg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _149071 {
             get {
                 object obj = ResourceManager.GetObject("149071", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Bez_nazwy {
+            get {
+                object obj = ResourceManager.GetObject("Bez nazwy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

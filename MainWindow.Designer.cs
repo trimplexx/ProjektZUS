@@ -28,15 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.LogOutButton = new System.Windows.Forms.Button();
-            this.PodsumowanieButton = new System.Windows.Forms.Button();
+            this.AddWorker = new System.Windows.Forms.Button();
             this.PracownicyButton = new System.Windows.Forms.Button();
             this.ProfilButton = new System.Windows.Forms.Button();
             this.StronaGlownaButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.NazwaUzytkownikaLabel = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.titleLabel = new System.Windows.Forms.Label();
@@ -46,6 +48,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.MenuPracownikow = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -57,8 +60,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(28)))), ((int)(((byte)(65)))));
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.LogOutButton);
-            this.panel1.Controls.Add(this.PodsumowanieButton);
+            this.panel1.Controls.Add(this.AddWorker);
             this.panel1.Controls.Add(this.PracownicyButton);
             this.panel1.Controls.Add(this.ProfilButton);
             this.panel1.Controls.Add(this.StronaGlownaButton);
@@ -68,6 +72,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(190, 657);
             this.panel1.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.ForeColor = System.Drawing.Color.Transparent;
+            this.button1.Image = global::ProjektZUS.Properties.Resources.próba3;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(0, 450);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(190, 70);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "   Podsumowanie";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // LogOutButton
             // 
@@ -89,26 +113,25 @@
             this.LogOutButton.UseVisualStyleBackColor = false;
             this.LogOutButton.Click += new System.EventHandler(this.LogOutButton_Click);
             // 
-            // PodsumowanieButton
+            // AddWorker
             // 
-            this.PodsumowanieButton.BackColor = System.Drawing.Color.Transparent;
-            this.PodsumowanieButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.PodsumowanieButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.PodsumowanieButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PodsumowanieButton.FlatAppearance.BorderSize = 0;
-            this.PodsumowanieButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PodsumowanieButton.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PodsumowanieButton.ForeColor = System.Drawing.Color.Transparent;
-            this.PodsumowanieButton.Image = global::ProjektZUS.Properties.Resources.próba3;
-            this.PodsumowanieButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.PodsumowanieButton.Location = new System.Drawing.Point(0, 380);
-            this.PodsumowanieButton.Name = "PodsumowanieButton";
-            this.PodsumowanieButton.Size = new System.Drawing.Size(190, 70);
-            this.PodsumowanieButton.TabIndex = 11;
-            this.PodsumowanieButton.Text = "Podsumowanie";
-            this.PodsumowanieButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PodsumowanieButton.UseVisualStyleBackColor = false;
-            this.PodsumowanieButton.Click += new System.EventHandler(this.PodsumowanieButton_Click);
+            this.AddWorker.BackColor = System.Drawing.Color.Transparent;
+            this.AddWorker.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.AddWorker.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AddWorker.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AddWorker.FlatAppearance.BorderSize = 0;
+            this.AddWorker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddWorker.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.AddWorker.ForeColor = System.Drawing.Color.Transparent;
+            this.AddWorker.Image = global::ProjektZUS.Properties.Resources.Bez_nazwy;
+            this.AddWorker.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AddWorker.Location = new System.Drawing.Point(0, 380);
+            this.AddWorker.Name = "AddWorker";
+            this.AddWorker.Size = new System.Drawing.Size(190, 70);
+            this.AddWorker.TabIndex = 11;
+            this.AddWorker.Text = "Dodaj    Pracownika";
+            this.AddWorker.UseVisualStyleBackColor = false;
+            this.AddWorker.Click += new System.EventHandler(this.AddWorker_Click);
             // 
             // PracownicyButton
             // 
@@ -126,8 +149,8 @@
             this.PracownicyButton.Name = "PracownicyButton";
             this.PracownicyButton.Size = new System.Drawing.Size(190, 66);
             this.PracownicyButton.TabIndex = 10;
-            this.PracownicyButton.Text = " Pracownicy     ";
-            this.PracownicyButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.PracownicyButton.Text = "       Pracownicy     ";
+            this.PracownicyButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PracownicyButton.UseVisualStyleBackColor = false;
             this.PracownicyButton.Click += new System.EventHandler(this.PracownicyButton_Click);
             // 
@@ -147,7 +170,8 @@
             this.ProfilButton.Name = "ProfilButton";
             this.ProfilButton.Size = new System.Drawing.Size(190, 67);
             this.ProfilButton.TabIndex = 9;
-            this.ProfilButton.Text = "Profil";
+            this.ProfilButton.Text = "      Profil";
+            this.ProfilButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ProfilButton.UseVisualStyleBackColor = false;
             this.ProfilButton.Click += new System.EventHandler(this.ProfilButton_Click);
             // 
@@ -175,7 +199,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(7)))), ((int)(((byte)(53)))));
-            this.panel2.Controls.Add(this.NazwaUzytkownikaLabel);
+            this.panel2.Controls.Add(this.textBox1);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
@@ -183,16 +207,22 @@
             this.panel2.Size = new System.Drawing.Size(190, 177);
             this.panel2.TabIndex = 4;
             // 
-            // NazwaUzytkownikaLabel
+            // textBox1
             // 
-            this.NazwaUzytkownikaLabel.AutoSize = true;
-            this.NazwaUzytkownikaLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.NazwaUzytkownikaLabel.ForeColor = System.Drawing.Color.White;
-            this.NazwaUzytkownikaLabel.Location = new System.Drawing.Point(30, 130);
-            this.NazwaUzytkownikaLabel.Name = "NazwaUzytkownikaLabel";
-            this.NazwaUzytkownikaLabel.Size = new System.Drawing.Size(131, 32);
-            this.NazwaUzytkownikaLabel.TabIndex = 4;
-            this.NazwaUzytkownikaLabel.Text = "User name";
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(7)))), ((int)(((byte)(53)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Enabled = false;
+            this.textBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.textBox1.ForeColor = System.Drawing.Color.White;
+            this.textBox1.HideSelection = false;
+            this.textBox1.ImeMode = System.Windows.Forms.ImeMode.Hiragana;
+            this.textBox1.Location = new System.Drawing.Point(3, 130);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(182, 32);
+            this.textBox1.TabIndex = 13;
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panel3
             // 
@@ -253,7 +283,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
-            this.label5.Location = new System.Drawing.Point(901, 548);
+            this.label5.Location = new System.Drawing.Point(889, 550);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 17);
             this.label5.TabIndex = 12;
@@ -264,7 +294,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
-            this.label3.Location = new System.Drawing.Point(875, 565);
+            this.label3.Location = new System.Drawing.Point(863, 567);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 17);
             this.label3.TabIndex = 11;
@@ -291,6 +321,14 @@
             this.label2.Size = new System.Drawing.Size(405, 47);
             this.label2.TabIndex = 9;
             this.label2.Text = "Witamy w programie do";
+            // 
+            // MenuPracownikow
+            // 
+            this.MenuPracownikow.BackColor = System.Drawing.Color.Silver;
+            this.MenuPracownikow.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.MenuPracownikow.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.MenuPracownikow.Name = "contextMenuStrip1";
+            this.MenuPracownikow.Size = new System.Drawing.Size(61, 4);
             // 
             // MainWindow
             // 
@@ -324,11 +362,10 @@
         #endregion
         private Panel panel1;
         private Panel panel2;
-        private Label NazwaUzytkownikaLabel;
         private Panel panel3;
         private PictureBox pictureBox1;
         private Button StronaGlownaButton;
-        private Button PodsumowanieButton;
+        private Button AddWorker;
         private Button PracownicyButton;
         private Button ProfilButton;
         private Label titleLabel;
@@ -339,5 +376,8 @@
         private Label label4;
         private Label label2;
         private Button LogOutButton;
+        private TextBox textBox1;
+        private ContextMenuStrip MenuPracownikow;
+        private Button button1;
     }
 }
