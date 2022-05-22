@@ -69,6 +69,8 @@ namespace ProjektZUS
         // Panel przechodzący do podsumowania składek
         private void PodsumowanieButton_Click(object sender, EventArgs e)
         {
+            CountWorkers();
+            PodsumowaniePom();
             OpenNewPanel(new Zakładki.Podsumowanie(), sender);
             UsernameLabel();
             titleLabel.Text = "Podsumowanie";
@@ -130,16 +132,9 @@ namespace ProjektZUS
                 }
             }
         }
-
-        private void WorkersOnList()
+        //Metoda przypisuje pomocnicze 'a' dla wszystkich komórek w kolumnie pomocniczej w SQL
+        private void ResetPomNum()
         {
-            //czyszczenie listy itemów oraz tablicy ID pracowników 
-            MenuPracownikow.Items.Clear();
-            Array.Clear(StaticPomClass.WorkerID);
-
-            //deklaracja tablicy obiektów zgodna z liczbą pracowników w bazie danych
-            ToolStripMenuItem[] workerToolStripMenuItem = new ToolStripMenuItem[_numerOfWorkers];
-
             using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
             {
                 con.Open();
@@ -151,6 +146,17 @@ namespace ProjektZUS
                 adapter.UpdateCommand.ExecuteNonQuery();
                 sqlCmd2.Dispose();
             }
+        }
+        private void WorkersOnList()
+        {
+            //czyszczenie listy itemów oraz tablicy ID pracowników 
+            MenuPracownikow.Items.Clear();
+            Array.Clear(StaticPomClass.WorkerID);
+
+            //deklaracja tablicy obiektów zgodna z liczbą pracowników w bazie danych
+            ToolStripMenuItem[] workerToolStripMenuItem = new ToolStripMenuItem[_numerOfWorkers];
+            ResetPomNum();
+
             // Pętla wykonywana jest tyle razy ilu zliczy pracowników użytkownika
             for (int i = 0; i < _numerOfWorkers; i++)
             {
@@ -202,6 +208,40 @@ namespace ProjektZUS
             }
             OpenNewPanel(new Zakładki.EdycjaPracownika(), sender);
             titleLabel.Text = "Profil Pracownika";
+        }
+
+        // Metoda pomocnicza pobierająca ID pracowników użytkownika do tablicy
+        private void PodsumowaniePom()
+        {
+            //czyszczenie tablicy ID
+            Array.Clear(StaticPomClass.WorkerID);
+            ResetPomNum();
+            for (int i = 0; i < _numerOfWorkers; i++)
+            {
+                using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
+                {
+                    con.Open();
+
+                    // String wybiera zmienne pierwszego napotkanego pracownika w tabeli, któremu odpowiada numerID użytkownika oraz zmienna pomocnicza
+                    SqlCommand sqlCmd = new SqlCommand($"SELECT WorkerID, PeselPrac FROM tabWorker WHERE UserIDPrac='{StaticPomClass.UserID}' and PomNum='a'", con);
+                    SqlDataReader reader = sqlCmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        StaticPomClass.WorkerID[i] = reader.GetInt32(0);
+                        string PeselPom = reader.GetString(1);
+                        reader.Close();
+
+                        // Zmienna pomocnicza następnie ulega zmianie aby ciągle nie był brany ten sam pracownik
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        string sql = $"Update tabWorker set PomNum='z' where PeselPrac='{PeselPom}'";
+                        SqlCommand sqlCmd2 = new SqlCommand(sql, con);
+                        adapter.UpdateCommand = new SqlCommand(sql, con);
+                        adapter.UpdateCommand.ExecuteNonQuery();
+                        sqlCmd2.Dispose();
+                        con.Close();
+                    }
+                }
+            }
         }
     }
 }
