@@ -11,14 +11,15 @@ using System.Data.SqlClient;
 
 namespace ProjektZUS.Zakładki
 {
+    // Metoda obsługująca panel edycji pracowników otwierający się po wyborze danego pracownika z listy.
     public partial class EdycjaPracownika : Form
     {
         public EdycjaPracownika()
         {
             InitializeComponent();
-            Dane();
+            Dane(); // Wyświetlenie wpisanych przy tworzeniu pracownika danych
         }
-        //wyświetlanie danych pracownika 
+        // Wyświetlanie danych w textBoxach wcześniej utworzonego pracownika 
         public void Dane()
         {
             using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
@@ -30,6 +31,7 @@ namespace ProjektZUS.Zakładki
                 SqlDataReader reader = sqlCmd.ExecuteReader();
                 if (reader.Read())
                 {
+                    // Wpisywanie danych do textBoxów
                     ImieTextBox.Text = reader.GetString(0);
                     NazwiskoTextBox.Text = reader.GetString(1);
                     PeselTextBox.Text = reader.GetString(2);
@@ -40,13 +42,15 @@ namespace ProjektZUS.Zakładki
                 }
                 else
                 {
+                    MessageBox.Show("Wystąpił błąd przy wczytywaniu pracownika", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     reader.Close();
                     con.Close();
                 }
             }
         }
 
-        // Zapisanie zmian wprowadzonych dla pracownika
+        // Zapisanie zmian wprowadzonych dla pracownika (obsługa przycisku 'Zapisz')
         private void SaveChanges_Click(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
@@ -94,6 +98,7 @@ namespace ProjektZUS.Zakładki
                 if (result == DialogResult.Yes)
                 {
                     con.Open();
+                    // Usunięcie pracownika z bazy danych
                     SqlCommand sqlCmd = new SqlCommand($"Delete from tabWorker where WorkerID='{StaticPomClass.WorkerID[StaticPomClass.Index]}'", con);
                     SqlDataReader reader = sqlCmd.ExecuteReader();
                     reader.Close();

@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 
 namespace ProjektZUS.Zakładki
 {
+    // Klasa odpowiada za panel dodawania pracowników do bazy danych
     public partial class Pracownik : Form
     {
         public Pracownik()
@@ -19,12 +20,12 @@ namespace ProjektZUS.Zakładki
             InitializeComponent();
         }
 
-        /* Metoda obsługuje dodawanie nowego pracownika do bazy danych.
-         */
+        // Metoda obsługuje dodawanie nowego pracownika do bazy danych.
         private void AddNewWorker_Click(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
             {
+                // Walidacja czy każde pole zostało uzupełnione oraz czy długość numeru pesel jest odpowiednia
                 if (ImieTextBox.TextLength == 0 || NazwiskoTextBox.TextLength == 0 || PeselTextBox.TextLength < 11 ||
                     DowodTextBox.TextLength == 0 || BruttoTextBox.TextLength == 0)
                 {
@@ -46,10 +47,13 @@ namespace ProjektZUS.Zakładki
                     {
                         MessageBox.Show("Podany numer pesel już istnieje w bazie", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         dr.Close();
+                        con.Close();
                     }
                     else
                     {
                         dr.Close();
+
+                        // Wywołanie query odpowiadającego za dodawanie pracowników do tabeli
                         SqlCommand sqlCmd = new SqlCommand("WorkerAdd3", con);
                         sqlCmd.CommandType = CommandType.StoredProcedure;
                         sqlCmd.Parameters.AddWithValue("@ImiePrac", ImieTextBox.Text.Trim());
@@ -57,12 +61,13 @@ namespace ProjektZUS.Zakładki
                         sqlCmd.Parameters.AddWithValue("@PeselPrac", PeselTextBox.Text.Trim());
                         sqlCmd.Parameters.AddWithValue("@DowodPrac", DowodTextBox.Text.Trim());
                         sqlCmd.Parameters.AddWithValue("@BruttoPrac", BruttoTextBox.Text.Trim());
-                        sqlCmd.Parameters.AddWithValue("@UserIDPrac", StaticPomClass.UserID);
+                        sqlCmd.Parameters.AddWithValue("@UserIDPrac", StaticPomClass.UserID); // Przypisanie dla pracownika ID pracodawcy
+
                         MessageBox.Show("Podany pracownik został pomyślnie dodany", "Info",
                                             MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
                         sqlCmd.ExecuteNonQuery();
                         con.Close();
-                        AddNewWorker.Enabled = false;
                     }
                 }
             }

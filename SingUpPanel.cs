@@ -11,13 +11,13 @@ using System.Data.SqlClient;
 
 namespace ProjektZUS
 {
+    // Klasa panelu rejestracji użytkowników
     public partial class SingUpPanel : Form
     {
         public SingUpPanel()
         {
             InitializeComponent();
-            //ukrycie hasła od początku programu
-            PasswordTextBox.PasswordChar = '*';
+            PasswordTextBox.PasswordChar = '*'; //ukrycie hasła od początku programu
         }
 
         //label przechodządzy do panelu logowania

@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 
 namespace ProjektZUS
 {
+    // Klasa panelu logowania
     public partial class LoginPanel : Form
     {
 

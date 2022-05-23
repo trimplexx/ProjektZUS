@@ -35,6 +35,7 @@ namespace ProjektZUS.Zakładki
                 SqlDataReader reader = sqlCmd.ExecuteReader();
                 if (reader.Read())
                 {
+                    // Wpisywanie danych do textBoxów
                     ImieTextBox.Text = reader.GetString(0);
                     NazwiskoTextBox.Text = reader.GetString(1);
                     PeselTextBox.Text = reader.GetString(2);
@@ -48,6 +49,8 @@ namespace ProjektZUS.Zakładki
                 }
                 else
                 {
+                    MessageBox.Show("Wystąpił błąd przy wczytywaniu pracownika", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     reader.Close();
                     con.Close();
                 }  
