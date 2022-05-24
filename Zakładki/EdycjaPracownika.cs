@@ -14,8 +14,8 @@ namespace ProjektZUS.Zakładki
     // Metoda obsługująca panel edycji pracowników otwierający się po wyborze danego pracownika z listy.
     public partial class EdycjaPracownika : Form
     {
-        double zarobki;
         SqlConnection con = null;
+        SqlDataReader reader = null;
         public EdycjaPracownika()
         {
             InitializeComponent();
@@ -32,7 +32,7 @@ namespace ProjektZUS.Zakładki
                     // Przekazanie ID pracownika z tablicy, pod odpowiednim indexem wysłanym przez sender przycisku
                     SqlCommand sqlCmd = new SqlCommand($"select ImiePrac, NazwiskoPrac, PeselPrac, DowodPrac, BruttoPrac " +
                         $"from tabWorker where WorkerID='{StaticPomClass.WorkerID[StaticPomClass.Index]}'", con);
-                    SqlDataReader reader = sqlCmd.ExecuteReader();
+                    reader = sqlCmd.ExecuteReader();
                     if (reader.Read())
                     {
                         // Wpisywanie danych do textBoxów
@@ -41,15 +41,11 @@ namespace ProjektZUS.Zakładki
                         PeselTextBox.Text = reader.GetString(2);
                         DowodTextBox.Text = reader.GetString(3);
                         BruttoTextBox.Text = reader.GetString(4);
-                        reader.Close();
-                        con.Close();
                     }
                     else
                     {
                         MessageBox.Show("Wystąpił błąd przy wczytywaniu pracownika", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        reader.Close();
-                        con.Close();
                     }
                 }
             }
@@ -59,6 +55,8 @@ namespace ProjektZUS.Zakładki
             }
             finally
             {
+                if (reader != null)
+                    reader.Close();
                 if (con != null)
                     con.Close();
             }
@@ -96,8 +94,6 @@ namespace ProjektZUS.Zakładki
                         adapter.UpdateCommand.ExecuteNonQuery();
                         sqlCmd.Dispose();
 
-                        con.Close();
-
                         MessageBox.Show("Dane zostały pomyślnie zmienione", "Info",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -122,16 +118,14 @@ namespace ProjektZUS.Zakładki
             {
                 using (con = new SqlConnection(StaticPomClass.connectionSting))
                 {
-
                     DialogResult result = MessageBox.Show("Czy na pewno chcesz usunąć pracownika?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    // jeśli kliknie się tak, to usunie pracownika
                     if (result == DialogResult.Yes)
                     {
                         con.Open();
                         // Usunięcie pracownika z bazy danych
                         SqlCommand sqlCmd = new SqlCommand($"Delete from tabWorker where WorkerID='{StaticPomClass.WorkerID[StaticPomClass.Index]}'", con);
-                        SqlDataReader reader = sqlCmd.ExecuteReader();
-                        reader.Close();
-                        con.Close();
+                        reader = sqlCmd.ExecuteReader();
                         Hide();
                     }
                 }
@@ -142,6 +136,8 @@ namespace ProjektZUS.Zakładki
             }
             finally
             {
+                if (reader != null)
+                    reader.Close();
                 if (con != null)
                     con.Close();
             }

@@ -15,7 +15,8 @@ namespace ProjektZUS
     // Klasa panelu logowania
     public partial class LoginPanel : Form
     {
-
+        private SqlDataReader reader;
+        private SqlConnection con = null;
         public LoginPanel()
         {
             InitializeComponent();
@@ -45,7 +46,6 @@ namespace ProjektZUS
          */
         private void LoginButton(object sender, EventArgs e)
         {
-            SqlConnection con = null;
             try
             {
                 using (con = new SqlConnection(StaticPomClass.connectionSting))
@@ -53,15 +53,15 @@ namespace ProjektZUS
                     con.Open();
                     // Komenda sql odpowiadaj¹ca za wyszukiwanie pasuj¹cego u¿ytkownika i jego has³a
                     SqlCommand sqlCmd = new SqlCommand($"select * from tabUser where Username='{LoginTextBox.Text}' and Haslo='{PasswordTextBox.Text}'", con);
-                    SqlDataReader dr = sqlCmd.ExecuteReader();
-                    if (dr.Read()) // gdy uda³o siê znaleŸ pasuj¹ce dane
+                    reader = sqlCmd.ExecuteReader();
+                    if (reader.Read()) // gdy uda³o siê znaleŸ pasuj¹ce dane
                     {
-                        dr.Close();
+                        reader.Close();
                         /* zapisanie userID przy pomocy loginudo zmiennej statycznej potrzebnej w póŸniejszym 
                          * odwo³ywaniu siê w oknach
                          */
                         SqlCommand sqlCmdID = new SqlCommand($"select UserID from tabUser where Username='{LoginTextBox.Text}'", con);
-                        SqlDataReader reader = sqlCmdID.ExecuteReader();
+                        reader = sqlCmdID.ExecuteReader();
                         if (reader.Read())
                         {
                             StaticPomClass.UserID = reader.GetInt32(0);
@@ -73,7 +73,7 @@ namespace ProjektZUS
                     }
                     else // gdy nie uda³o siê znaleŸæ pasuj¹cych danych
                     {
-                        dr.Close();
+                        reader.Close();
                         MessageBox.Show("Wprowadzono zle dane", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -84,7 +84,9 @@ namespace ProjektZUS
             }
             finally
             {
-                if (con != null)
+                if (reader != null)
+                    reader.Close();
+                if(con != null)
                     con.Close();
             }
         }

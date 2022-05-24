@@ -18,7 +18,9 @@ namespace ProjektZUS
         public int numerOfWorkers { get; set; }
         string ImiePracownika { get; set; }
         string NazwiskoPracownika { set; get; }
-        SqlConnection con = null;
+
+        private SqlDataReader reader;
+        private SqlConnection con = null;
 
         private Form activePanel;
         public MainWindow()
@@ -51,7 +53,7 @@ namespace ProjektZUS
         {
             OpenNewPanel(new Zakładki.StronaGlowna(), sender);
             titleLabel.Text = "Strona Główna";
-            UsernameLabel();
+            UsernameLabel(); // odświeżenie nazwy użytkownika po zmianie
         }
 
         // Panel profilu użytkownika
@@ -101,12 +103,10 @@ namespace ProjektZUS
                     con.Open();
                     // Komenda bazy danych wybierająca zmienną Imie 
                     SqlCommand sqlCmd = new SqlCommand($"select Imie from tabUser where UserID='{StaticPomClass.UserID}'", con);
-                    SqlDataReader reader = sqlCmd.ExecuteReader();
+                    reader = sqlCmd.ExecuteReader();
                     if (reader.Read())
                     {
                         textBox1.Text = reader.GetString(0);
-                        reader.Close();
-                        con.Close();
                     }
                 }
             }
@@ -116,6 +116,8 @@ namespace ProjektZUS
             }
             finally
             {
+                if (reader != null)
+                    reader.Close();
                 if (con != null)
                     con.Close();
             }
@@ -144,12 +146,11 @@ namespace ProjektZUS
                 {
                     con.Open();
                     SqlCommand sqlCmd = new SqlCommand($"SELECT COUNT(1) FROM tabWorker WHERE UserIDPrac='{StaticPomClass.UserID}'", con);
-                    SqlDataReader reader = sqlCmd.ExecuteReader();
+                    reader = sqlCmd.ExecuteReader();
                     if (reader.Read())
                     {
                         // Przypisanie zwróconej liczby do zmiennej _numOfWorkers
                         numerOfWorkers = reader.GetInt32(0);
-                        reader.Close();
                         StaticPomClass.Workers = numerOfWorkers;
                     }
                 }
@@ -160,6 +161,8 @@ namespace ProjektZUS
             }
             finally
             {
+                if (reader != null)
+                    reader.Close();
                 if (con != null)
                     con.Close();
             }
@@ -181,7 +184,6 @@ namespace ProjektZUS
                     adapter.UpdateCommand = new SqlCommand(sql, con);
                     adapter.UpdateCommand.ExecuteNonQuery();
                     sqlCmd2.Dispose();
-                    con.Close();
                 }
             }
             catch (SqlException ex)
@@ -230,8 +232,8 @@ namespace ProjektZUS
                             NazwiskoPracownika = reader.GetString(1);
                             string PeselPrac = reader.GetString(2); // Zczytanie unikatowego numeru pesel dla pracownika
                             StaticPomClass.WorkerID.Add(reader.GetInt32(3));
-                            reader.Close();
 
+                            reader.Close();
                             // Zmienna pomocnicza następnie ulega zmianie aby ciągle nie był brany ten sam pracownik
                             SqlDataAdapter adapter = new SqlDataAdapter();
                             string sql = $"Update tabWorker set PomNum='z' where ImiePrac='{ImiePracownika}' and" +
@@ -240,7 +242,6 @@ namespace ProjektZUS
                             adapter.UpdateCommand = new SqlCommand(sql, con);
                             adapter.UpdateCommand.ExecuteNonQuery();
                             sqlCmd2.Dispose();
-                            con.Close();
                         }
                     }
                     /* Tworzenie MenuItemów wysuwanych w przypadku kliknięcia przycisku 'pracownicy' w MainWindow, Przycisków zostanie utworzona taka ilość,
@@ -257,6 +258,8 @@ namespace ProjektZUS
                 }
                 finally
                 {
+                    if (reader != null)
+                        reader.Close();
                     if (con != null)
                         con.Close();
                 }
@@ -298,8 +301,8 @@ namespace ProjektZUS
                         {
                             StaticPomClass.WorkerID.Add(reader.GetInt32(0));
                             string PeselPom = reader.GetString(1);
-                            reader.Close();
 
+                            reader.Close();
                             // Zmienna pomocnicza następnie ulega zmianie na bazie numeru pesel aby ciągle nie był brany ten sam pracownik
                             SqlDataAdapter adapter = new SqlDataAdapter();
                             string sql = $"Update tabWorker set PomNum='z' where PeselPrac='{PeselPom}'";
@@ -307,7 +310,6 @@ namespace ProjektZUS
                             adapter.UpdateCommand = new SqlCommand(sql, con);
                             adapter.UpdateCommand.ExecuteNonQuery();
                             sqlCmd2.Dispose();
-                            con.Close();
                         }
                     }
                 }
@@ -317,6 +319,8 @@ namespace ProjektZUS
                 }
                 finally
                 {
+                    if (reader != null)
+                        reader.Close();
                     if (con != null)
                         con.Close();
                 }

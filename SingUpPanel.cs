@@ -14,6 +14,8 @@ namespace ProjektZUS
     // Klasa panelu rejestracji użytkowników
     public partial class SingUpPanel : Form
     {
+        private SqlDataReader reader;
+        private SqlConnection con = null;
         public SingUpPanel()
         {
             InitializeComponent();
@@ -39,7 +41,6 @@ namespace ProjektZUS
         
         private void SignUpButton_Click(object sender, EventArgs e)
         {
-            SqlConnection con = null;
             try
             {
                 //połączenie z bazą danych
@@ -55,23 +56,23 @@ namespace ProjektZUS
                     else
                     {
                         con.Open();
-                        // Deklaracja komendy dodawania do tabeli w bazie danych
-                        SqlCommand sqlCmd = new SqlCommand("UserAdd", con);
 
                         //Deklaracja komend do walidacji danych z bazy danych dla peselu oraz nazwy użytkownika.
                         SqlCommand sqlCmdPesel = new SqlCommand($"select * from tabUser where Username='{LoginTextBox.Text}' or Pesel='{PeselTextBox.Text}'", con);
-                        SqlDataReader dr = sqlCmdPesel.ExecuteReader();
-                        sqlCmd.CommandType = CommandType.StoredProcedure;
+                        reader = sqlCmdPesel.ExecuteReader();
 
                         //walidacja numeru pesel oraz nazwy użytkownika, gdyż ta z założenia nie może się powtarzać
-                        if (dr.Read())
+                        if (reader.Read())
                         {
                             MessageBox.Show("Podany numer pesel, bądź nazwa użytkownika już istnieje", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            dr.Close();
                         }
                         else
                         {
-                            dr.Close();
+                            reader.Close();
+                            // Deklaracja komendy dodawania do tabeli w bazie danych
+                            SqlCommand sqlCmd = new SqlCommand("UserAdd", con);
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+
                             // wczytywanie danych rejestracji do bazy danych z pominięciem pustych znaków
                             sqlCmd.Parameters.AddWithValue("@Imie", ImieTextBox.Text.Trim());
                             sqlCmd.Parameters.AddWithValue("@Nazwisko", NazwiskoTextBox.Text.Trim());
@@ -83,7 +84,6 @@ namespace ProjektZUS
                             sqlCmd.Parameters.AddWithValue("@REGON", "");
                             sqlCmd.ExecuteNonQuery();
                             MessageBox.Show("Zajerestrowano pomyslnie!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            con.Close();
                             GoToLogin_Click(sender, e);
                         }
                     }
@@ -95,9 +95,12 @@ namespace ProjektZUS
             }
             finally
             {
+                if (reader != null)
+                    reader.Close();
                 if (con != null)
                     con.Close();
             }
         }
+
     }
 }

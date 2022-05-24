@@ -16,6 +16,7 @@ namespace ProjektZUS.Zakładki
     public partial class Pracownik : Form
     {
         SqlConnection con = null;
+        SqlDataReader reader = null;
         public Pracownik()
         {
             InitializeComponent();
@@ -43,18 +44,16 @@ namespace ProjektZUS.Zakładki
                          */
                         SqlCommand sqlCmdPesel = new SqlCommand($"select * from tabWorker where PeselPrac='{PeselTextBox.Text}' " +
                             $"and UserIDPrac= '{StaticPomClass.UserID}'", con);
-                        SqlDataReader dr = sqlCmdPesel.ExecuteReader();
+                        reader = sqlCmdPesel.ExecuteReader();
 
                         //walidacja numeru pesel, gdyż ten z założenia nie może się powtarzać
-                        if (dr.Read())
+                        if (reader.Read())
                         {
                             MessageBox.Show("Podany numer pesel już istnieje w bazie", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            dr.Close();
                         }
                         else
                         {
-                            dr.Close();
-
+                            reader.Close();
                             // Wywołanie query odpowiadającego za dodawanie pracowników do tabeli
                             SqlCommand sqlCmd = new SqlCommand("WorkerAdd3", con);
                             sqlCmd.CommandType = CommandType.StoredProcedure;
@@ -62,19 +61,11 @@ namespace ProjektZUS.Zakładki
                             sqlCmd.Parameters.AddWithValue("@NazwiskoPrac", NazwiskoTextBox.Text.Trim());
                             sqlCmd.Parameters.AddWithValue("@PeselPrac", PeselTextBox.Text.Trim());
                             sqlCmd.Parameters.AddWithValue("@DowodPrac", DowodTextBox.Text.Trim());
-                            try
-                            {
-                                sqlCmd.Parameters.AddWithValue("@BruttoPrac", double.Parse(BruttoTextBox.Text));
-                            }
-                            catch (Exception ex)
-                            {
-                                throw new BasicErrorException("Podano złą wartość zarobków (Poprawny zapis to np. 123,14)");
-                            }
+                            sqlCmd.Parameters.AddWithValue("@BruttoPrac", BruttoTextBox.Text.Trim());
                             sqlCmd.Parameters.AddWithValue("@UserIDPrac", StaticPomClass.UserID); // Przypisanie dla pracownika ID pracodawcy
 
                             MessageBox.Show("Podany pracownik został pomyślnie dodany", "Info",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                             sqlCmd.ExecuteNonQuery();
                         }
                     }
@@ -86,6 +77,8 @@ namespace ProjektZUS.Zakładki
             }
             finally
             {
+                if (reader != null)
+                    reader.Close();
                 if (con != null)
                     con.Close();
             }

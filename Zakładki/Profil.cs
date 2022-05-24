@@ -14,6 +14,7 @@ namespace ProjektZUS.Zakładki
     public partial class Profil : Form
     {
         SqlConnection con = null;
+        SqlDataReader reader = null;
         public Profil()
         {
             InitializeComponent();
@@ -35,7 +36,7 @@ namespace ProjektZUS.Zakładki
                     con.Open();
                     SqlCommand sqlCmd = new SqlCommand($"select Imie, Nazwisko, Pesel, Username, Haslo, Dowod, " +
                         $"NIP, REGON from tabUser where UserID='{StaticPomClass.UserID}'", con);
-                    SqlDataReader reader = sqlCmd.ExecuteReader();
+                    reader = sqlCmd.ExecuteReader();
                     if (reader.Read())
                     {
                         // Wpisywanie danych do textBoxów
@@ -47,15 +48,11 @@ namespace ProjektZUS.Zakładki
                         DowodTextBox.Text = reader.GetString(5);
                         NIPtextBox.Text = reader.GetString(6);
                         REGONtextBox.Text = reader.GetString(7);
-                        reader.Close();
-                        con.Close();
                     }
                     else
                     {
                         MessageBox.Show("Wystąpił błąd przy wczytywaniu pracownika", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        reader.Close();
-                        con.Close();
                     }
                 }
             }
@@ -65,6 +62,8 @@ namespace ProjektZUS.Zakładki
             }
             finally
             {
+                if (reader != null)
+                    reader.Close();
                 if (con != null)
                     con.Close();
             }
@@ -117,7 +116,6 @@ namespace ProjektZUS.Zakładki
                         adapter.UpdateCommand = new SqlCommand(sql, con);
                         adapter.UpdateCommand.ExecuteNonQuery();
                         sqlCmd.Dispose();
-                        con.Close();
 
                         MessageBox.Show("Dane zostały pomyślnie zmienione", "Info",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);

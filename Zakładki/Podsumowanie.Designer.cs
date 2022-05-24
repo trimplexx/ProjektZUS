@@ -188,7 +188,7 @@
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(974, 497);
             this.Controls.Add(this.dgv1);
-            this.Name = "Podsumowanie";
+            this.Name.Name = "Podsumowanie";
             this.Text = "Podsumowanie";
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).EndInit();
             this.ResumeLayout(false);
