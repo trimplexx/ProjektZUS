@@ -18,6 +18,7 @@ namespace ProjektZUS
         public int numerOfWorkers { get; set; }
         string ImiePracownika { get; set; }
         string NazwiskoPracownika { set; get; }
+        SqlConnection con = null;
 
         private Form activePanel;
         public MainWindow()
@@ -75,7 +76,7 @@ namespace ProjektZUS
         private void PodsumowanieButton_Click(object sender, EventArgs e)
         {
             CountWorkers();
-            PodsumowaniePom();
+            //PodsumowaniePom();
             OpenNewPanel(new Zakładki.Podsumowanie(), sender);
             titleLabel.Text = "Podsumowanie";
             UsernameLabel();
@@ -93,18 +94,30 @@ namespace ProjektZUS
          */
         private void UsernameLabel()
         {
-            using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
+            try
             {
-                con.Open();
-                // Komenda bazy danych wybierająca zmienną Imie 
-                SqlCommand sqlCmd = new SqlCommand($"select Imie from tabUser where UserID='{StaticPomClass.UserID}'", con);
-                SqlDataReader reader = sqlCmd.ExecuteReader();
-                if (reader.Read())
+                using (con = new SqlConnection(StaticPomClass.connectionSting))
                 {
-                    textBox1.Text = reader.GetString(0);
-                    reader.Close();
-                    con.Close();
+                    con.Open();
+                    // Komenda bazy danych wybierająca zmienną Imie 
+                    SqlCommand sqlCmd = new SqlCommand($"select Imie from tabUser where UserID='{StaticPomClass.UserID}'", con);
+                    SqlDataReader reader = sqlCmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        textBox1.Text = reader.GetString(0);
+                        reader.Close();
+                        con.Close();
+                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                throw new BasicErrorException("Ogólny problem z bazą danych");
+            }
+            finally
+            {
+                if (con != null)
+                    con.Close();
             }
         }
 
@@ -114,7 +127,7 @@ namespace ProjektZUS
         private void AddWorker_Click(object sender, EventArgs e)
         {
             // Liczba pracowników nie może przekroczyć 2999 w danej firmie inaczej przycisk zostanie zablokowany
-            if(numerOfWorkers >  2999)
+            if(numerOfWorkers >  StaticPomClass.WorkerID.Count)
             {
                 AddWorker.Enabled = false;
             }
@@ -125,18 +138,29 @@ namespace ProjektZUS
         // Metoda odpowiada za zliczanie wszystkich pracowników z bazy danych posiadających takie samo ID pracodawcy.
         private void CountWorkers()
         {
-            using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
+            try
             {
-                con.Open();
-                SqlCommand sqlCmd = new SqlCommand($"SELECT COUNT(1) FROM tabWorker WHERE UserIDPrac='{StaticPomClass.UserID}'", con);
-                SqlDataReader reader = sqlCmd.ExecuteReader();
-                if (reader.Read())
+                using (con = new SqlConnection(StaticPomClass.connectionSting))
                 {
-                    // Przypisanie zwróconej liczby do zmiennej _numOfWorkers
-                    numerOfWorkers = reader.GetInt32(0);
-                    reader.Close();
-                    con.Close();
+                    con.Open();
+                    SqlCommand sqlCmd = new SqlCommand($"SELECT COUNT(1) FROM tabWorker WHERE UserIDPrac='{StaticPomClass.UserID}'", con);
+                    SqlDataReader reader = sqlCmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        // Przypisanie zwróconej liczby do zmiennej _numOfWorkers
+                        numerOfWorkers = reader.GetInt32(0);
+                        reader.Close();
+                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                throw new BasicErrorException("Ogólny problem z bazą danych");
+            }
+            finally
+            {
+                if (con != null)
+                    con.Close();
             }
         }
         /* Metoda przypisuje pomocnicze 'a' dla wszystkich komórek w kolumnie pomocniczej w SQL. Jest to metoda pomocnicza w celu późniejszego
@@ -144,16 +168,29 @@ namespace ProjektZUS
         */
         private void ResetPomNum()
         {
-            using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
+            try
             {
-                con.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                // Podany string ustawia wszystkie komórki w pomocniczej kolumnie dla pracowników danego użytkownika na wartość 'a'
-                string sql = $"Update tabWorker set PomNum='a'WHERE UserIDPrac='{StaticPomClass.UserID}'";
-                SqlCommand sqlCmd2 = new SqlCommand(sql, con);
-                adapter.UpdateCommand = new SqlCommand(sql, con);
-                adapter.UpdateCommand.ExecuteNonQuery();
-                sqlCmd2.Dispose();
+                using (con = new SqlConnection(StaticPomClass.connectionSting))
+                {
+                    con.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    // Podany string ustawia wszystkie komórki w pomocniczej kolumnie dla pracowników danego użytkownika na wartość 'a'
+                    string sql = $"Update tabWorker set PomNum='a'WHERE UserIDPrac='{StaticPomClass.UserID}'";
+                    SqlCommand sqlCmd2 = new SqlCommand(sql, con);
+                    adapter.UpdateCommand = new SqlCommand(sql, con);
+                    adapter.UpdateCommand.ExecuteNonQuery();
+                    sqlCmd2.Dispose();
+                    con.Close();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new BasicErrorException("Ogólny problem z bazą danych");
+            }
+            finally
+            {
+                if (con != null)
+                    con.Close();
             }
         }
 
@@ -165,7 +202,7 @@ namespace ProjektZUS
         {
             //czyszczenie listy itemów oraz tablicy ID pracowników 
             MenuPracownikow.Items.Clear();
-            Array.Clear(StaticPomClass.WorkerID);
+            StaticPomClass.WorkerID.Clear();
 
             //deklaracja tablicy obiektów zgodna z liczbą pracowników w bazie danych
             ToolStripMenuItem[] workerToolStripMenuItem = new ToolStripMenuItem[numerOfWorkers];
@@ -175,41 +212,53 @@ namespace ProjektZUS
             // Pętla wykonywana jest tyle razy ilu zliczy pracowników użytkownika. Odpowiada za tworzenie itemów na liście.
             for (int i = 0; i < numerOfWorkers; i++)
             {
-                using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
+                try
                 {
-                    con.Open();
-                    // String wybiera zmienne pierwszego napotkanego pracownika w tabeli, któremu odpowiada numerID użytkownika oraz zmienna pomocnicza
-                    SqlCommand sqlCmd = new SqlCommand($"SELECT ImiePrac, NazwiskoPrac, PeselPrac, WorkerID FROM tabWorker WHERE UserIDPrac=" +
-                        $"'{StaticPomClass.UserID}' and PomNum='a'", con);
-
-                    SqlDataReader reader = sqlCmd.ExecuteReader();
-                    if (reader.Read())
+                    using (con = new SqlConnection(StaticPomClass.connectionSting))
                     {
-                        // Tymczasowe przypisanie do zmiennych zczytanych danych z bazy
-                        ImiePracownika = reader.GetString(0);
-                        NazwiskoPracownika = reader.GetString(1);
-                        string PeselPrac = reader.GetString(2); // Zczytanie unikatowego numeru pesel dla pracownika
-                        StaticPomClass.WorkerID[i] = reader.GetInt32(3);
-                        reader.Close();
+                        con.Open();
+                        // String wybiera zmienne pierwszego napotkanego pracownika w tabeli, któremu odpowiada numerID użytkownika oraz zmienna pomocnicza
+                        SqlCommand sqlCmd = new SqlCommand($"SELECT ImiePrac, NazwiskoPrac, PeselPrac, WorkerID FROM tabWorker WHERE UserIDPrac=" +
+                            $"'{StaticPomClass.UserID}' and PomNum='a'", con);
 
-                        // Zmienna pomocnicza następnie ulega zmianie aby ciągle nie był brany ten sam pracownik
-                        SqlDataAdapter adapter = new SqlDataAdapter();
-                        string sql = $"Update tabWorker set PomNum='z' where ImiePrac='{ImiePracownika}' and" +
-                            $" NazwiskoPrac='{NazwiskoPracownika}' and PeselPrac='{PeselPrac}'";
-                        SqlCommand sqlCmd2 = new SqlCommand(sql, con);
-                        adapter.UpdateCommand = new SqlCommand(sql, con);
-                        adapter.UpdateCommand.ExecuteNonQuery();
-                        sqlCmd2.Dispose();
-                        con.Close();
+                        SqlDataReader reader = sqlCmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            // Tymczasowe przypisanie do zmiennych zczytanych danych z bazy
+                            ImiePracownika = reader.GetString(0);
+                            NazwiskoPracownika = reader.GetString(1);
+                            string PeselPrac = reader.GetString(2); // Zczytanie unikatowego numeru pesel dla pracownika
+                            StaticPomClass.WorkerID.Add(reader.GetInt32(3));
+                            reader.Close();
+
+                            // Zmienna pomocnicza następnie ulega zmianie aby ciągle nie był brany ten sam pracownik
+                            SqlDataAdapter adapter = new SqlDataAdapter();
+                            string sql = $"Update tabWorker set PomNum='z' where ImiePrac='{ImiePracownika}' and" +
+                                $" NazwiskoPrac='{NazwiskoPracownika}' and PeselPrac='{PeselPrac}'";
+                            SqlCommand sqlCmd2 = new SqlCommand(sql, con);
+                            adapter.UpdateCommand = new SqlCommand(sql, con);
+                            adapter.UpdateCommand.ExecuteNonQuery();
+                            sqlCmd2.Dispose();
+                            con.Close();
+                        }
                     }
+                    /* Tworzenie MenuItemów wysuwanych w przypadku kliknięcia przycisku 'pracownicy' w MainWindow, Przycisków zostanie utworzona taka ilość,
+                     * ile zostało znalezionych pracowników dla danego użytkownika. Do Każdego Itemu przypisane zostaje zczytane imie oraz nazwisko oraz 
+                     * metoda odpowiadająca za jego kliknięcie.
+                     */
+                    workerToolStripMenuItem[i] = new ToolStripMenuItem($"{ImiePracownika}" +
+                        $" {NazwiskoPracownika}", null, WorkerToolStripMenuItem_Click, $"Pracownik{i}");
+                    MenuPracownikow.Items.Add(workerToolStripMenuItem[i]);
                 }
-                /* Tworzenie MenuItemów wysuwanych w przypadku kliknięcia przycisku 'pracownicy' w MainWindow, Przycisków zostanie utworzona taka ilość,
-                 * ile zostało znalezionych pracowników dla danego użytkownika. Do Każdego Itemu przypisane zostaje zczytane imie oraz nazwisko oraz 
-                 * metoda odpowiadająca za jego kliknięcie.
-                 */
-                workerToolStripMenuItem[i] = new ToolStripMenuItem($"{ImiePracownika}" +
-                    $" {NazwiskoPracownika}", null, WorkerToolStripMenuItem_Click, $"Pracownik{i}");
-                MenuPracownikow.Items.Add(workerToolStripMenuItem[i]);
+                catch (SqlException ex)
+                {
+                    throw new BasicErrorException("Ogólny problem z bazą danych");
+                }
+                finally
+                {
+                    if (con != null)
+                        con.Close();
+                }
             }
         }
 
@@ -227,41 +276,52 @@ namespace ProjektZUS
         }
 
         // Metoda pomocnicza pobierająca ID pracowników użytkownika do tablicy.
-        private void PodsumowaniePom()
-        {
-            // Czyszczenie tablicy ID oraz kolumny w bazie danych
-            Array.Clear(StaticPomClass.WorkerID);
-            ResetPomNum();
+        //private void PodsumowaniePom()
+        //{
+        //    // Czyszczenie tablicy ID oraz kolumny w bazie danych
+        //    Array.Clear(StaticPomClass.WorkerID);
+        //    ResetPomNum();
+        //    // Pętla umieszczająca wszystkie ID pracowników w tablicy intów.
+        //    for (int i = 0; i < numerOfWorkers; i++)
+        //    {
+        //        try
+        //        {
+        //            using (con = new SqlConnection(StaticPomClass.connectionSting))
+        //            {
+        //                con.Open();
 
-            // Pętla umieszczająca wszystkie ID pracowników w tablicy intów.
-            for (int i = 0; i < numerOfWorkers; i++)
-            {
-                using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
-                {
-                    con.Open();
+        //                /* String wybiera zmienne pierwszego napotkanego pracownika w tabeli, któremu odpowiada numerID użytkownika oraz zmienna pomocnicza.
+        //                 * Następnie pobiera ID pracownika umieszcza je w tablicy oraz zmienną pomocniczą w postaci unikatowego numeru pesel.
+        //                */
+        //                SqlCommand sqlCmd = new SqlCommand($"SELECT WorkerID, PeselPrac FROM tabWorker WHERE UserIDPrac='{StaticPomClass.UserID}' and PomNum='a'", con);
+        //                SqlDataReader reader = sqlCmd.ExecuteReader();
+        //                if (reader.Read())
+        //                {
+        //                    StaticPomClass.WorkerID[i] = reader.GetInt32(0);
+        //                    string PeselPom = reader.GetString(1);
+        //                    reader.Close();
 
-                    /* String wybiera zmienne pierwszego napotkanego pracownika w tabeli, któremu odpowiada numerID użytkownika oraz zmienna pomocnicza.
-                     * Następnie pobiera ID pracownika umieszcza je w tablicy oraz zmienną pomocniczą w postaci unikatowego numeru pesel.
-                    */
-                    SqlCommand sqlCmd = new SqlCommand($"SELECT WorkerID, PeselPrac FROM tabWorker WHERE UserIDPrac='{StaticPomClass.UserID}' and PomNum='a'", con);
-                    SqlDataReader reader = sqlCmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        StaticPomClass.WorkerID[i] = reader.GetInt32(0);
-                        string PeselPom = reader.GetString(1);
-                        reader.Close();
-
-                        // Zmienna pomocnicza następnie ulega zmianie na bazie numeru pesel aby ciągle nie był brany ten sam pracownik
-                        SqlDataAdapter adapter = new SqlDataAdapter();
-                        string sql = $"Update tabWorker set PomNum='z' where PeselPrac='{PeselPom}'";
-                        SqlCommand sqlCmd2 = new SqlCommand(sql, con);
-                        adapter.UpdateCommand = new SqlCommand(sql, con);
-                        adapter.UpdateCommand.ExecuteNonQuery();
-                        sqlCmd2.Dispose();
-                        con.Close();
-                    }
-                }
-            }
-        }
+        //                    // Zmienna pomocnicza następnie ulega zmianie na bazie numeru pesel aby ciągle nie był brany ten sam pracownik
+        //                    SqlDataAdapter adapter = new SqlDataAdapter();
+        //                    string sql = $"Update tabWorker set PomNum='z' where PeselPrac='{PeselPom}'";
+        //                    SqlCommand sqlCmd2 = new SqlCommand(sql, con);
+        //                    adapter.UpdateCommand = new SqlCommand(sql, con);
+        //                    adapter.UpdateCommand.ExecuteNonQuery();
+        //                    sqlCmd2.Dispose();
+        //                    con.Close();
+        //                }
+        //            }
+        //        }
+        //        catch (SqlException ex)
+        //        {
+        //            throw new BasicErrorException("Ogólny problem z bazą danych");
+        //        }
+        //        finally
+        //        {
+        //            if (con != null)
+        //                con.Close();
+        //        }
+        //    }
+        //}
     }
 }

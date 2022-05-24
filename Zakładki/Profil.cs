@@ -13,6 +13,7 @@ namespace ProjektZUS.Zakładki
 {
     public partial class Profil : Form
     {
+        SqlConnection con = null;
         public Profil()
         {
             InitializeComponent();
@@ -27,33 +28,45 @@ namespace ProjektZUS.Zakładki
          */
         public void Dane()
         {
-            using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
+            try
             {
-                con.Open();
-                SqlCommand sqlCmd = new SqlCommand($"select Imie, Nazwisko, Pesel, Username, Haslo, Dowod, " +
-                    $"NIP, REGON from tabUser where UserID='{StaticPomClass.UserID}'", con);
-                SqlDataReader reader = sqlCmd.ExecuteReader();
-                if (reader.Read())
+                using (con = new SqlConnection(StaticPomClass.connectionSting))
                 {
-                    // Wpisywanie danych do textBoxów
-                    ImieTextBox.Text = reader.GetString(0);
-                    NazwiskoTextBox.Text = reader.GetString(1);
-                    PeselTextBox.Text = reader.GetString(2);
-                    LoginTextBox.Text = reader.GetString(3);
-                    PasswordTextBox.Text = reader.GetString(4);
-                    DowodTextBox.Text = reader.GetString(5);
-                    NIPtextBox.Text = reader.GetString(6);
-                    REGONtextBox.Text = reader.GetString(7);
-                    reader.Close();
-                    con.Close();
+                    con.Open();
+                    SqlCommand sqlCmd = new SqlCommand($"select Imie, Nazwisko, Pesel, Username, Haslo, Dowod, " +
+                        $"NIP, REGON from tabUser where UserID='{StaticPomClass.UserID}'", con);
+                    SqlDataReader reader = sqlCmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        // Wpisywanie danych do textBoxów
+                        ImieTextBox.Text = reader.GetString(0);
+                        NazwiskoTextBox.Text = reader.GetString(1);
+                        PeselTextBox.Text = reader.GetString(2);
+                        LoginTextBox.Text = reader.GetString(3);
+                        PasswordTextBox.Text = reader.GetString(4);
+                        DowodTextBox.Text = reader.GetString(5);
+                        NIPtextBox.Text = reader.GetString(6);
+                        REGONtextBox.Text = reader.GetString(7);
+                        reader.Close();
+                        con.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wystąpił błąd przy wczytywaniu pracownika", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        reader.Close();
+                        con.Close();
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Wystąpił błąd przy wczytywaniu pracownika", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    reader.Close();
+            }
+            catch (SqlException ex)
+            {
+                throw new BasicErrorException("Ogólny problem z bazą danych");
+            }
+            finally
+            {
+                if (con != null)
                     con.Close();
-                }  
             }
         }
 
@@ -73,40 +86,52 @@ namespace ProjektZUS.Zakładki
         */
         private void SaveChanges_click(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(StaticPomClass.connectionSting))
+            try
             {
-                // walidacja długości zmienianych pól
-                if ( ImieTextBox.TextLength == 0 || NazwiskoTextBox.TextLength == 0 ||
-                     PasswordTextBox.TextLength == 0 || DowodTextBox.TextLength == 0 ||
-                    NIPtextBox.TextLength == 0 || REGONtextBox.TextLength == 0)
+                using (con = new SqlConnection(StaticPomClass.connectionSting))
                 {
-                    MessageBox.Show("Uzupełnij wszystkie pola", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // walidacja długości zmienianych pól
+                    if (ImieTextBox.TextLength == 0 || NazwiskoTextBox.TextLength == 0 ||
+                         PasswordTextBox.TextLength == 0 || DowodTextBox.TextLength == 0 ||
+                        NIPtextBox.TextLength == 0 || REGONtextBox.TextLength == 0)
+                    {
+                        MessageBox.Show("Uzupełnij wszystkie pola", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        con.Open();
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+
+                        /* string sql będący komendą updatowania poszczególnych zmiennych w bazie danych
+                         *  poprzez zczytywanie wartości z TextBoxów, gdzie nazwa użytkownika zgadza się z tą,
+                         *  którą się logowaliśmy
+                         */
+                        string sql = $"Update tabUser set Imie='{ImieTextBox.Text}'," +
+                            $"Nazwisko= '{NazwiskoTextBox.Text}'," +
+                            $"Haslo='{PasswordTextBox.Text}', Dowod='{DowodTextBox.Text}'," +
+                            $"NIP='{NIPtextBox.Text}', REGON='{REGONtextBox.Text}'" +
+                            $"where UserID='{StaticPomClass.UserID}'";
+
+                        SqlCommand sqlCmd = new SqlCommand(sql, con);
+                        adapter.UpdateCommand = new SqlCommand(sql, con);
+                        adapter.UpdateCommand.ExecuteNonQuery();
+                        sqlCmd.Dispose();
+                        con.Close();
+
+                        MessageBox.Show("Dane zostały pomyślnie zmienione", "Info",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
-                else
-                {
-                    con.Open();
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-
-                    /* string sql będący komendą updatowania poszczególnych zmiennych w bazie danych
-                     *  poprzez zczytywanie wartości z TextBoxów, gdzie nazwa użytkownika zgadza się z tą,
-                     *  którą się logowaliśmy
-                     */
-                    string sql = $"Update tabUser set Imie='{ImieTextBox.Text}'," +
-                        $"Nazwisko= '{NazwiskoTextBox.Text}'," +
-                        $"Haslo='{PasswordTextBox.Text}', Dowod='{DowodTextBox.Text}'," +
-                        $"NIP='{NIPtextBox.Text}', REGON='{REGONtextBox.Text}'" +
-                        $"where UserID='{StaticPomClass.UserID}'";
-
-                    SqlCommand sqlCmd = new SqlCommand(sql, con);
-                    adapter.UpdateCommand = new SqlCommand(sql, con);
-                    adapter.UpdateCommand.ExecuteNonQuery();
-                    sqlCmd.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                throw new BasicErrorException("Ogólny problem z bazą danych");
+            }
+            finally
+            {
+                if (con != null)
                     con.Close();
-
-                    MessageBox.Show("Dane zostały pomyślnie zmienione", "Info",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
             }
         }
     }
