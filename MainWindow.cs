@@ -77,6 +77,7 @@ namespace ProjektZUS
         // Panel przechodzący do podsumowania składek
         private void PodsumowanieButton_Click(object sender, EventArgs e)
         {
+            ResetPomNum();
             CountWorkers();
             PodsumowaniePom();
             OpenNewPanel(new Zakładki.Podsumowanie(), sender);
@@ -151,7 +152,7 @@ namespace ProjektZUS
                     {
                         // Przypisanie zwróconej liczby do zmiennej _numOfWorkers
                         numerOfWorkers = reader.GetInt32(0);
-                        StaticPomClass.Workers = numerOfWorkers;
+                        StaticPomClass.WorkersNum = numerOfWorkers;
                     }
                 }
             }
@@ -224,7 +225,7 @@ namespace ProjektZUS
                         SqlCommand sqlCmd = new SqlCommand($"SELECT ImiePrac, NazwiskoPrac, PeselPrac, WorkerID FROM tabWorker WHERE UserIDPrac=" +
                             $"'{StaticPomClass.UserID}' and PomNum='a'", con);
 
-                        SqlDataReader reader = sqlCmd.ExecuteReader();
+                        reader = sqlCmd.ExecuteReader();
                         if (reader.Read())
                         {
                             // Tymczasowe przypisanie do zmiennych zczytanych danych z bazy
@@ -296,7 +297,7 @@ namespace ProjektZUS
                          * Następnie pobiera ID pracownika umieszcza je w tablicy oraz zmienną pomocniczą w postaci unikatowego numeru pesel.
                         */
                         SqlCommand sqlCmd = new SqlCommand($"SELECT WorkerID, PeselPrac FROM tabWorker WHERE UserIDPrac='{StaticPomClass.UserID}' and PomNum='a'", con);
-                        SqlDataReader reader = sqlCmd.ExecuteReader();
+                        reader = sqlCmd.ExecuteReader();
                         if (reader.Read())
                         {
                             StaticPomClass.WorkerID.Add(reader.GetInt32(0));

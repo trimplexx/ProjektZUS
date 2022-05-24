@@ -49,6 +49,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.MenuPracownikow = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -331,6 +332,11 @@
             this.MenuPracownikow.Name = "contextMenuStrip1";
             this.MenuPracownikow.Size = new System.Drawing.Size(61, 4);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -380,5 +386,6 @@
         private TextBox textBox1;
         private ContextMenuStrip MenuPracownikow;
         private Button button1;
+        private NotifyIcon notifyIcon1;
     }
 }

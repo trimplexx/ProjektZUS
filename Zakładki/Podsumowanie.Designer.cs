@@ -34,18 +34,18 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv1 = new System.Windows.Forms.DataGridView();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Surrname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Pesel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Brutto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Emerytalna = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rentowa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Chorobowa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Wypadkowa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Zdrowotne = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FunduszPracy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,133 +53,150 @@
             // 
             this.dgv1.AllowUserToAddRows = false;
             this.dgv1.AllowUserToDeleteRows = false;
-            this.dgv1.AllowUserToOrderColumns = true;
+            this.dgv1.AllowUserToResizeColumns = false;
+            this.dgv1.AllowUserToResizeRows = false;
+            this.dgv1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgv1.BackgroundColor = System.Drawing.Color.LightGray;
             this.dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Name,
-            this.Surrname,
-            this.Pesel,
-            this.Brutto,
-            this.Emerytalna,
-            this.Rentowa,
-            this.Chorobowa,
-            this.Wypadkowa,
-            this.Zdrowotne,
-            this.FunduszPracy});
-            this.dgv1.Location = new System.Drawing.Point(2, 10);
+            this.Column10,
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5,
+            this.Column11,
+            this.Column6,
+            this.Column7,
+            this.Column8,
+            this.Column9});
+            this.dgv1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv1.Location = new System.Drawing.Point(0, 0);
             this.dgv1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.dgv1.Name = "dgv1";
             this.dgv1.ReadOnly = true;
+            this.dgv1.RowHeadersVisible = false;
             this.dgv1.RowHeadersWidth = 82;
             this.dgv1.RowTemplate.Height = 41;
-            this.dgv1.ShowEditingIcon = false;
-            this.dgv1.Size = new System.Drawing.Size(973, 477);
+            this.dgv1.Size = new System.Drawing.Size(974, 497);
             this.dgv1.TabIndex = 0;
             // 
-            // Name
+            // Column10
             // 
-            this.Name.DataPropertyName = "ImiePrac";
-            this.Name.HeaderText = "Imie";
-            this.Name.MinimumWidth = 10;
-            this.Name.Name = "Name";
-            this.Name.ReadOnly = true;
-            this.Name.Width = 200;
+            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column10.HeaderText = "Id";
+            this.Column10.MinimumWidth = 10;
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Width = 42;
             // 
-            // Surrname
+            // Column1
             // 
-            this.Surrname.DataPropertyName = "NazwiskoPrac";
-            this.Surrname.HeaderText = "Nazwisko";
-            this.Surrname.MinimumWidth = 10;
-            this.Surrname.Name = "Surrname";
-            this.Surrname.ReadOnly = true;
-            this.Surrname.Width = 200;
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column1.HeaderText = "Imie";
+            this.Column1.MinimumWidth = 10;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 55;
             // 
-            // Pesel
+            // Column2
             // 
-            this.Pesel.DataPropertyName = "PeselPrac";
-            this.Pesel.HeaderText = "Pesel";
-            this.Pesel.MinimumWidth = 10;
-            this.Pesel.Name = "Pesel";
-            this.Pesel.ReadOnly = true;
-            this.Pesel.Width = 200;
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column2.HeaderText = "Nazwisko";
+            this.Column2.MinimumWidth = 10;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 82;
             // 
-            // Brutto
+            // Column3
             // 
-            this.Brutto.DataPropertyName = "BruttoPrac";
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column3.HeaderText = "Pesel";
+            this.Column3.MinimumWidth = 10;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 59;
+            // 
+            // Column4
+            // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column4.HeaderText = "Brutto";
+            this.Column4.MinimumWidth = 10;
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 65;
+            // 
+            // Column5
+            // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle1.Format = "C2";
             dataGridViewCellStyle1.NullValue = null;
-            this.Brutto.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Brutto.HeaderText = "Brutto";
-            this.Brutto.MinimumWidth = 10;
-            this.Brutto.Name = "Brutto";
-            this.Brutto.ReadOnly = true;
-            this.Brutto.Width = 200;
+            this.Column5.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Column5.HeaderText = "Emerytalna";
+            this.Column5.MinimumWidth = 10;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 91;
             // 
-            // Emerytalna
+            // Column11
             // 
+            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle2.Format = "C2";
             dataGridViewCellStyle2.NullValue = null;
-            this.Emerytalna.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Emerytalna.HeaderText = "Emerytalna";
-            this.Emerytalna.MinimumWidth = 10;
-            this.Emerytalna.Name = "Emerytalna";
-            this.Emerytalna.ReadOnly = true;
-            this.Emerytalna.Width = 200;
+            this.Column11.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Column11.HeaderText = "Rentowa";
+            this.Column11.MinimumWidth = 10;
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            this.Column11.Width = 78;
             // 
-            // Rentowa
+            // Column6
             // 
+            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle3.Format = "C2";
             dataGridViewCellStyle3.NullValue = null;
-            this.Rentowa.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Rentowa.HeaderText = "Rentowa";
-            this.Rentowa.MinimumWidth = 10;
-            this.Rentowa.Name = "Rentowa";
-            this.Rentowa.ReadOnly = true;
-            this.Rentowa.Width = 200;
+            this.Column6.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Column6.HeaderText = "Chorobowa";
+            this.Column6.MinimumWidth = 10;
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Width = 94;
             // 
-            // Chorobowa
+            // Column7
             // 
+            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle4.Format = "C2";
             dataGridViewCellStyle4.NullValue = null;
-            this.Chorobowa.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Chorobowa.HeaderText = "Chorobowa";
-            this.Chorobowa.MinimumWidth = 10;
-            this.Chorobowa.Name = "Chorobowa";
-            this.Chorobowa.ReadOnly = true;
-            this.Chorobowa.Width = 200;
+            this.Column7.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Column7.HeaderText = "Wypadkowa";
+            this.Column7.MinimumWidth = 10;
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Width = 97;
             // 
-            // Wypadkowa
+            // Column8
             // 
+            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle5.Format = "C2";
             dataGridViewCellStyle5.NullValue = null;
-            this.Wypadkowa.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Wypadkowa.HeaderText = "Wypadkowa";
-            this.Wypadkowa.MinimumWidth = 10;
-            this.Wypadkowa.Name = "Wypadkowa";
-            this.Wypadkowa.ReadOnly = true;
-            this.Wypadkowa.Width = 200;
+            this.Column8.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Column8.HeaderText = "Zdrowotna";
+            this.Column8.MinimumWidth = 10;
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Width = 90;
             // 
-            // Zdrowotne
+            // Column9
             // 
+            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle6.Format = "C2";
             dataGridViewCellStyle6.NullValue = null;
-            this.Zdrowotne.DefaultCellStyle = dataGridViewCellStyle6;
-            this.Zdrowotne.HeaderText = "Zdrowotne";
-            this.Zdrowotne.MinimumWidth = 10;
-            this.Zdrowotne.Name = "Zdrowotne";
-            this.Zdrowotne.ReadOnly = true;
-            this.Zdrowotne.Width = 200;
-            // 
-            // FunduszPracy
-            // 
-            dataGridViewCellStyle7.Format = "C2";
-            dataGridViewCellStyle7.NullValue = null;
-            this.FunduszPracy.DefaultCellStyle = dataGridViewCellStyle7;
-            this.FunduszPracy.HeaderText = "Fundusz Pracy";
-            this.FunduszPracy.MinimumWidth = 10;
-            this.FunduszPracy.Name = "FunduszPracy";
-            this.FunduszPracy.ReadOnly = true;
-            this.FunduszPracy.Width = 200;
+            this.Column9.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Column9.HeaderText = "Fundusz Pracy";
+            this.Column9.MinimumWidth = 10;
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.Width = 108;
             // 
             // Podsumowanie
             // 
@@ -188,7 +205,7 @@
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(974, 497);
             this.Controls.Add(this.dgv1);
-            this.Name.Name = "Podsumowanie";
+            this.Name = "Podsumowanie";
             this.Text = "Podsumowanie";
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).EndInit();
             this.ResumeLayout(false);
@@ -198,16 +215,17 @@
         #endregion
 
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn Name;
-        private DataGridViewTextBoxColumn Surrname;
-        private DataGridViewTextBoxColumn Pesel;
-        private DataGridViewTextBoxColumn Brutto;
-        private DataGridViewTextBoxColumn Emerytalna;
-        private DataGridViewTextBoxColumn Rentowa;
-        private DataGridViewTextBoxColumn Chorobowa;
-        private DataGridViewTextBoxColumn Wypadkowa;
-        private DataGridViewTextBoxColumn Zdrowotne;
-        private DataGridViewTextBoxColumn FunduszPracy;
         private DataGridView dgv1;
+        private DataGridViewTextBoxColumn Column10;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column2;
+        private DataGridViewTextBoxColumn Column3;
+        private DataGridViewTextBoxColumn Column4;
+        private DataGridViewTextBoxColumn Column5;
+        private DataGridViewTextBoxColumn Column11;
+        private DataGridViewTextBoxColumn Column6;
+        private DataGridViewTextBoxColumn Column7;
+        private DataGridViewTextBoxColumn Column8;
+        private DataGridViewTextBoxColumn Column9;
     }
 }

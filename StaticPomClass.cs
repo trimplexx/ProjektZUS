@@ -19,7 +19,7 @@ namespace ProjektZUS
         // lista przechowywująca ID pracowników
         public static List <int> WorkerID = new List<int>();
 
-        public static int Workers 
+        public static int WorkersNum 
         { get; set; }
 
         // Index do wskazania danego pracownika w tablicy
