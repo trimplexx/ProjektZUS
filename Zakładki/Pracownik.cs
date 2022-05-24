@@ -17,6 +17,7 @@ namespace ProjektZUS.Zakładki
     {
         SqlConnection con = null;
         SqlDataReader reader = null;
+        private double value;
         public Pracownik()
         {
             InitializeComponent();
@@ -53,6 +54,7 @@ namespace ProjektZUS.Zakładki
                         }
                         else
                         {
+
                             reader.Close();
                             // Wywołanie query odpowiadającego za dodawanie pracowników do tabeli
                             SqlCommand sqlCmd = new SqlCommand("WorkerAdd3", con);
@@ -61,9 +63,20 @@ namespace ProjektZUS.Zakładki
                             sqlCmd.Parameters.AddWithValue("@NazwiskoPrac", NazwiskoTextBox.Text.Trim());
                             sqlCmd.Parameters.AddWithValue("@PeselPrac", PeselTextBox.Text.Trim());
                             sqlCmd.Parameters.AddWithValue("@DowodPrac", DowodTextBox.Text.Trim());
-                            sqlCmd.Parameters.AddWithValue("@BruttoPrac", BruttoTextBox.Text.Trim());
-                            sqlCmd.Parameters.AddWithValue("@UserIDPrac", StaticPomClass.UserID); // Przypisanie dla pracownika ID pracodawcy
 
+                            // Walidacja zarobków
+                            if (double.TryParse(BruttoTextBox.Text.Substring(0, BruttoTextBox.Text.IndexOf(",") + 3), out value))
+                            {
+                                sqlCmd.Parameters.AddWithValue("@BruttoPrac", value.ToString());
+                            }
+                            else
+                            {
+                                reader.Close();
+                                con.Close();
+                                throw new BasicErrorException("Podano wartość zarobków, która nie jest liczbą");
+                            }
+                            sqlCmd.Parameters.AddWithValue("@UserIDPrac", StaticPomClass.UserID); // Przypisanie dla pracownika ID pracodawcy
+                          
                             MessageBox.Show("Podany pracownik został pomyślnie dodany", "Info",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                             sqlCmd.ExecuteNonQuery();
