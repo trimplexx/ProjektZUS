@@ -15,9 +15,9 @@ namespace ProjektZUS
     // Klasa głównego okna programu
     public partial class MainWindow : Form
     {
-        public int numerOfWorkers { get; set; }
-        string ImiePracownika { get; set; }
-        string NazwiskoPracownika { set; get; }
+        public int NumerOfWorkers { get; set; }
+        private string ImiePracownika { get; set; }
+        private string NazwiskoPracownika { set; get; }
 
         private SqlDataReader reader;
         private SqlConnection con = null;
@@ -26,13 +26,14 @@ namespace ProjektZUS
         public MainWindow()
         {
             InitializeComponent();
+            OpenNewPanel(new Zakładki.StronaGlowna());
             UsernameLabel(); // Przekazanie imienia do textBoxa pod ikoną profilu
         }
 
         /* Metoda odpowiadająca za wymianę panelu w głównym oknie na nowy klikając poszczególne przyciski
         * posiadające swoje metody poniżej.
         */
-        private void OpenNewPanel(Form newPanel, object btnSender)
+        private void OpenNewPanel(Form newPanel)
         {
             if (activePanel != null)
             {
@@ -51,7 +52,7 @@ namespace ProjektZUS
         // Panel strona główna
         private void StronaGlownaButton_Click(object sender, EventArgs e)
         {
-            OpenNewPanel(new Zakładki.StronaGlowna(), sender);
+            OpenNewPanel(new Zakładki.StronaGlowna());
             titleLabel.Text = "Strona Główna";
             UsernameLabel(); // odświeżenie nazwy użytkownika po zmianie
         }
@@ -59,7 +60,7 @@ namespace ProjektZUS
         // Panel profilu użytkownika
         private void ProfilButton_Click(object sender, EventArgs e)
         {
-            OpenNewPanel(new Zakładki.Profil(), sender);
+            OpenNewPanel(new Zakładki.Profil());
             titleLabel.Text = "Profil";
             UsernameLabel();
         }
@@ -80,7 +81,7 @@ namespace ProjektZUS
             ResetPomNum();
             CountWorkers();
             PodsumowaniePom();
-            OpenNewPanel(new Zakładki.Podsumowanie(), sender);
+            OpenNewPanel(new Zakładki.Podsumowanie());
             titleLabel.Text = "Podsumowanie";
             UsernameLabel();
         }
@@ -130,11 +131,11 @@ namespace ProjektZUS
         private void AddWorker_Click(object sender, EventArgs e)
         {
             // Liczba pracowników nie może przekroczyć 2999 w danej firmie inaczej przycisk zostanie zablokowany
-            if(numerOfWorkers >  StaticPomClass.WorkerID.Count)
+            if(NumerOfWorkers >  StaticPomClass.WorkerID.Count)
             {
                 AddWorker.Enabled = false;
             }
-            OpenNewPanel(new Zakładki.Pracownik(), sender);
+            OpenNewPanel(new Zakładki.Pracownik());
             titleLabel.Text = "Nowy Pracownik";
         }
 
@@ -151,8 +152,8 @@ namespace ProjektZUS
                     if (reader.Read())
                     {
                         // Przypisanie zwróconej liczby do zmiennej _numOfWorkers
-                        numerOfWorkers = reader.GetInt32(0);
-                        StaticPomClass.WorkersNum = numerOfWorkers;
+                        NumerOfWorkers = reader.GetInt32(0);
+                        StaticPomClass.WorkersNum = NumerOfWorkers;
                     }
                 }
             }
@@ -209,12 +210,12 @@ namespace ProjektZUS
             StaticPomClass.WorkerID.Clear();
 
             //deklaracja tablicy obiektów zgodna z liczbą pracowników w bazie danych
-            ToolStripMenuItem[] workerToolStripMenuItem = new ToolStripMenuItem[numerOfWorkers];
+            ToolStripMenuItem[] workerToolStripMenuItem = new ToolStripMenuItem[NumerOfWorkers];
 
             ResetPomNum(); // resetowanie kolumny pomocniczej w bazie danych
 
             // Pętla wykonywana jest tyle razy ilu zliczy pracowników użytkownika. Odpowiada za tworzenie itemów na liście.
-            for (int i = 0; i < numerOfWorkers; i++)
+            for (int i = 0; i < NumerOfWorkers; i++)
             {
                 try
                 {
@@ -276,7 +277,7 @@ namespace ProjektZUS
             {
                 StaticPomClass.Index = MenuPracownikow.Items.IndexOf(item);
             }
-            OpenNewPanel(new Zakładki.EdycjaPracownika(), sender);
+            OpenNewPanel(new Zakładki.EdycjaPracownika());
             titleLabel.Text = "Profil Pracownika";
         }
 
@@ -285,7 +286,7 @@ namespace ProjektZUS
         {
             ResetPomNum();
             // Pętla umieszczająca wszystkie ID pracowników w tablicy intów.
-            for (int i = 0; i < numerOfWorkers; i++)
+            for (int i = 0; i < NumerOfWorkers; i++)
             {
                 try
                 {

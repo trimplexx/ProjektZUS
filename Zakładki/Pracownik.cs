@@ -17,7 +17,6 @@ namespace ProjektZUS.Zakładki
     {
         SqlConnection con = null;
         SqlDataReader reader = null;
-        private double value;
         public Pracownik()
         {
             InitializeComponent();
@@ -64,6 +63,7 @@ namespace ProjektZUS.Zakładki
                             sqlCmd.Parameters.AddWithValue("@PeselPrac", PeselTextBox.Text.Trim());
                             sqlCmd.Parameters.AddWithValue("@DowodPrac", DowodTextBox.Text.Trim());
 
+                            double value;
                             // Walidacja zarobków
                             if (double.TryParse(BruttoTextBox.Text.Substring(0, BruttoTextBox.Text.IndexOf(",") + 3), out value))
                             {

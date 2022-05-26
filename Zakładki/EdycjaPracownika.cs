@@ -16,7 +16,6 @@ namespace ProjektZUS.Zakładki
     {
         SqlConnection con = null;
         SqlDataReader reader = null;
-        private double value;
         public EdycjaPracownika()
         {
             InitializeComponent();
@@ -80,6 +79,7 @@ namespace ProjektZUS.Zakładki
 
                     else
                     {
+                        double value;
                         if (double.TryParse(BruttoTextBox.Text.Substring(0, BruttoTextBox.Text.IndexOf(",") + 3), out value))
                         {
                             con.Open();

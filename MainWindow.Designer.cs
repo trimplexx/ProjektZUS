@@ -44,18 +44,12 @@
             this.titleLabel = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.OknoPanel = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.MenuPracownikow = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel4.SuspendLayout();
-            this.OknoPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -270,59 +264,11 @@
             // 
             // OknoPanel
             // 
-            this.OknoPanel.Controls.Add(this.label5);
-            this.OknoPanel.Controls.Add(this.label3);
-            this.OknoPanel.Controls.Add(this.label4);
-            this.OknoPanel.Controls.Add(this.label2);
             this.OknoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OknoPanel.Location = new System.Drawing.Point(190, 66);
             this.OknoPanel.Name = "OknoPanel";
             this.OknoPanel.Size = new System.Drawing.Size(990, 591);
             this.OknoPanel.TabIndex = 10;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
-            this.label5.Location = new System.Drawing.Point(889, 550);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 17);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Filip Habryn";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
-            this.label3.Location = new System.Drawing.Point(863, 567);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 17);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Łukasz Krawczyk";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
-            this.label4.Location = new System.Drawing.Point(222, 111);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(457, 47);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "zarządzania składkami ZUS";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(12)))), ((int)(((byte)(107)))));
-            this.label2.Location = new System.Drawing.Point(247, 64);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(405, 47);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Witamy w programie do";
             // 
             // MenuPracownikow
             // 
@@ -331,11 +277,6 @@
             this.MenuPracownikow.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MenuPracownikow.Name = "contextMenuStrip1";
             this.MenuPracownikow.Size = new System.Drawing.Size(61, 4);
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
             // 
             // MainWindow
             // 
@@ -360,8 +301,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            this.OknoPanel.ResumeLayout(false);
-            this.OknoPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -378,14 +317,9 @@
         private Label titleLabel;
         private Panel panel4;
         private Panel OknoPanel;
-        private Label label5;
-        private Label label3;
-        private Label label4;
-        private Label label2;
         private Button LogOutButton;
         private TextBox textBox1;
         private ContextMenuStrip MenuPracownikow;
         private Button button1;
-        private NotifyIcon notifyIcon1;
     }
 }

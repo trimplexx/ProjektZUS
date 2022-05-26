@@ -13,13 +13,5 @@ namespace ProjektZUS
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        public BasicErrorException(string message, SqlDataReader dr) : base(message)
-        {
-            DialogResult result = MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            if(result == DialogResult.OK)
-            {
-                dr.Close();
-            }
-        }
     }
 }
