@@ -64,9 +64,8 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(217, 876);
+            this.panel1.Size = new System.Drawing.Size(190, 657);
             this.panel1.TabIndex = 2;
             // 
             // button1
@@ -81,10 +80,9 @@
             this.button1.ForeColor = System.Drawing.Color.Transparent;
             this.button1.Image = global::ProjektZUS.Properties.Resources.próba3;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 599);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button1.Location = new System.Drawing.Point(0, 450);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(217, 93);
+            this.button1.Size = new System.Drawing.Size(190, 70);
             this.button1.TabIndex = 13;
             this.button1.Text = "   Podsumowanie";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -103,10 +101,9 @@
             this.LogOutButton.ForeColor = System.Drawing.Color.Transparent;
             this.LogOutButton.Image = ((System.Drawing.Image)(resources.GetObject("LogOutButton.Image")));
             this.LogOutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LogOutButton.Location = new System.Drawing.Point(0, 799);
-            this.LogOutButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.LogOutButton.Location = new System.Drawing.Point(0, 599);
             this.LogOutButton.Name = "LogOutButton";
-            this.LogOutButton.Size = new System.Drawing.Size(217, 77);
+            this.LogOutButton.Size = new System.Drawing.Size(190, 58);
             this.LogOutButton.TabIndex = 12;
             this.LogOutButton.Text = "Wyloguj";
             this.LogOutButton.UseVisualStyleBackColor = false;
@@ -124,10 +121,9 @@
             this.AddWorker.ForeColor = System.Drawing.Color.Transparent;
             this.AddWorker.Image = global::ProjektZUS.Properties.Resources.Bez_nazwy;
             this.AddWorker.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AddWorker.Location = new System.Drawing.Point(0, 506);
-            this.AddWorker.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.AddWorker.Location = new System.Drawing.Point(0, 380);
             this.AddWorker.Name = "AddWorker";
-            this.AddWorker.Size = new System.Drawing.Size(217, 93);
+            this.AddWorker.Size = new System.Drawing.Size(190, 70);
             this.AddWorker.TabIndex = 11;
             this.AddWorker.Text = "Dodaj    Pracownika";
             this.AddWorker.UseVisualStyleBackColor = false;
@@ -145,10 +141,9 @@
             this.PracownicyButton.ForeColor = System.Drawing.Color.Transparent;
             this.PracownicyButton.Image = global::ProjektZUS.Properties.Resources.próba2;
             this.PracownicyButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.PracownicyButton.Location = new System.Drawing.Point(0, 418);
-            this.PracownicyButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.PracownicyButton.Location = new System.Drawing.Point(0, 314);
             this.PracownicyButton.Name = "PracownicyButton";
-            this.PracownicyButton.Size = new System.Drawing.Size(217, 88);
+            this.PracownicyButton.Size = new System.Drawing.Size(190, 66);
             this.PracownicyButton.TabIndex = 10;
             this.PracownicyButton.Text = "     Pracownicy     ";
             this.PracownicyButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -167,10 +162,9 @@
             this.ProfilButton.ForeColor = System.Drawing.Color.Transparent;
             this.ProfilButton.Image = ((System.Drawing.Image)(resources.GetObject("ProfilButton.Image")));
             this.ProfilButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ProfilButton.Location = new System.Drawing.Point(0, 329);
-            this.ProfilButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ProfilButton.Location = new System.Drawing.Point(0, 247);
             this.ProfilButton.Name = "ProfilButton";
-            this.ProfilButton.Size = new System.Drawing.Size(217, 89);
+            this.ProfilButton.Size = new System.Drawing.Size(190, 67);
             this.ProfilButton.TabIndex = 9;
             this.ProfilButton.Text = "      Profil";
             this.ProfilButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -189,10 +183,9 @@
             this.StronaGlownaButton.ForeColor = System.Drawing.Color.Transparent;
             this.StronaGlownaButton.Image = ((System.Drawing.Image)(resources.GetObject("StronaGlownaButton.Image")));
             this.StronaGlownaButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.StronaGlownaButton.Location = new System.Drawing.Point(0, 236);
-            this.StronaGlownaButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.StronaGlownaButton.Location = new System.Drawing.Point(0, 177);
             this.StronaGlownaButton.Name = "StronaGlownaButton";
-            this.StronaGlownaButton.Size = new System.Drawing.Size(217, 93);
+            this.StronaGlownaButton.Size = new System.Drawing.Size(190, 70);
             this.StronaGlownaButton.TabIndex = 8;
             this.StronaGlownaButton.Text = "Strona główna";
             this.StronaGlownaButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -206,9 +199,8 @@
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(217, 236);
+            this.panel2.Size = new System.Drawing.Size(190, 177);
             this.panel2.TabIndex = 4;
             // 
             // textBox1
@@ -220,20 +212,20 @@
             this.textBox1.ForeColor = System.Drawing.Color.White;
             this.textBox1.HideSelection = false;
             this.textBox1.ImeMode = System.Windows.Forms.ImeMode.Hiragana;
-            this.textBox1.Location = new System.Drawing.Point(3, 173);
+            this.textBox1.Location = new System.Drawing.Point(3, 130);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(208, 40);
+            this.textBox1.Size = new System.Drawing.Size(182, 32);
             this.textBox1.TabIndex = 13;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.pictureBox1);
-            this.panel3.Location = new System.Drawing.Point(27, 16);
-            this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel3.Location = new System.Drawing.Point(24, 12);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(157, 153);
+            this.panel3.Size = new System.Drawing.Size(137, 115);
             this.panel3.TabIndex = 3;
             // 
             // pictureBox1
@@ -241,9 +233,8 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = global::ProjektZUS.Properties.Resources.user_2861;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(157, 153);
+            this.pictureBox1.Size = new System.Drawing.Size(137, 115);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -257,7 +248,7 @@
             this.titleLabel.ForeColor = System.Drawing.Color.White;
             this.titleLabel.Location = new System.Drawing.Point(0, 0);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(398, 67);
+            this.titleLabel.Size = new System.Drawing.Size(315, 54);
             this.titleLabel.TabIndex = 3;
             this.titleLabel.Text = "Strona Główna";
             // 
@@ -266,19 +257,17 @@
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(28)))), ((int)(((byte)(65)))));
             this.panel4.Controls.Add(this.titleLabel);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(217, 0);
-            this.panel4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel4.Location = new System.Drawing.Point(190, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1132, 88);
+            this.panel4.Size = new System.Drawing.Size(990, 66);
             this.panel4.TabIndex = 9;
             // 
             // OknoPanel
             // 
             this.OknoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OknoPanel.Location = new System.Drawing.Point(217, 88);
-            this.OknoPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.OknoPanel.Location = new System.Drawing.Point(190, 66);
             this.OknoPanel.Name = "OknoPanel";
-            this.OknoPanel.Size = new System.Drawing.Size(1132, 788);
+            this.OknoPanel.Size = new System.Drawing.Size(990, 591);
             this.OknoPanel.TabIndex = 10;
             // 
             // MenuPracownikow
@@ -291,17 +280,16 @@
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(1349, 876);
+            this.ClientSize = new System.Drawing.Size(1180, 657);
             this.Controls.Add(this.OknoPanel);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
