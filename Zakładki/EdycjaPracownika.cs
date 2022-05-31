@@ -80,33 +80,64 @@ namespace ProjektZUS.Zakładki
                     else
                     {
                         double value;
-                        if (double.TryParse(BruttoTextBox.Text.Substring(0, BruttoTextBox.Text.IndexOf(",") + 3), out value))
+                        // sprawdzenie czy w kwocie znajduje sie przecinek
+                        if (BruttoTextBox.Text.Contains(","))
                         {
-                            con.Open();
+                            if (double.TryParse(BruttoTextBox.Text.Substring(0, BruttoTextBox.Text.IndexOf(",") + 3), out value))
+                            {
+                                con.Open();
+                                SqlDataAdapter adapter = new SqlDataAdapter();
 
-                            SqlDataAdapter adapter = new SqlDataAdapter();
+                                /* string sql będący komendą updatowania poszczególnych zmiennych w bazie danych
+                                 *  poprzez zczytywanie wartości z TextBoxów, gdzie nazwa użytkownika zgadza się z tą,
+                                 *  którą się logowaliśmy
+                                 */
+                                string sql = $"Update tabWorker set ImiePrac='{ImieTextBox.Text}'," +
+                                            $"NazwiskoPrac='{NazwiskoTextBox.Text}', PeselPrac='{PeselTextBox.Text}'," +
+                                            $"DowodPrac='{DowodTextBox.Text}', BruttoPrac='{value}' " +
+                                            $"where WorkerID='{StaticPomClass.WorkerID[StaticPomClass.Index]}'";
 
-                            /* string sql będący komendą updatowania poszczególnych zmiennych w bazie danych
-                             *  poprzez zczytywanie wartości z TextBoxów, gdzie nazwa użytkownika zgadza się z tą,
-                             *  którą się logowaliśmy
-                             */
-                            string sql = $"Update tabWorker set ImiePrac='{ImieTextBox.Text}'," +
-                                        $"NazwiskoPrac='{NazwiskoTextBox.Text}', PeselPrac='{PeselTextBox.Text}'," +
-                                        $"DowodPrac='{DowodTextBox.Text}', BruttoPrac='{value}' " +
-                                        $"where WorkerID='{StaticPomClass.WorkerID[StaticPomClass.Index]}'";
+                                SqlCommand sqlCmd = new SqlCommand(sql, con);
+                                adapter.UpdateCommand = new SqlCommand(sql, con);
+                                adapter.UpdateCommand.ExecuteNonQuery();
+                                sqlCmd.Dispose();
 
-                            SqlCommand sqlCmd = new SqlCommand(sql, con);
-                            adapter.UpdateCommand = new SqlCommand(sql, con);
-                            adapter.UpdateCommand.ExecuteNonQuery();
-                            sqlCmd.Dispose();
-
-                            MessageBox.Show("Dane zostały pomyślnie zmienione", "Info",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            
+                                MessageBox.Show("Dane zostały pomyślnie zmienione", "Info",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                throw new BasicErrorException("Podano wartość zarobków, która nie jest liczbą");
+                            }
                         }
                         else
                         {
-                            throw new BasicErrorException("Podano wartość zarobków, która nie jest liczbą");
+                            if (double.TryParse(BruttoTextBox.Text, out value))
+                            {
+                                con.Open();
+                                SqlDataAdapter adapter = new SqlDataAdapter();
+
+                                /* string sql będący komendą updatowania poszczególnych zmiennych w bazie danych
+                                 *  poprzez zczytywanie wartości z TextBoxów, gdzie nazwa użytkownika zgadza się z tą,
+                                 *  którą się logowaliśmy
+                                 */
+                                string sql = $"Update tabWorker set ImiePrac='{ImieTextBox.Text}'," +
+                                            $"NazwiskoPrac='{NazwiskoTextBox.Text}', PeselPrac='{PeselTextBox.Text}'," +
+                                            $"DowodPrac='{DowodTextBox.Text}', BruttoPrac='{value}' " +
+                                            $"where WorkerID='{StaticPomClass.WorkerID[StaticPomClass.Index]}'";
+
+                                SqlCommand sqlCmd = new SqlCommand(sql, con);
+                                adapter.UpdateCommand = new SqlCommand(sql, con);
+                                adapter.UpdateCommand.ExecuteNonQuery();
+                                sqlCmd.Dispose();
+
+                                MessageBox.Show("Dane zostały pomyślnie zmienione", "Info",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                throw new BasicErrorException("Podano wartość zarobków, która nie jest liczbą");
+                            }
                         }
                     }
                 }

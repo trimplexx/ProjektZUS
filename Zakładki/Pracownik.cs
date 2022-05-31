@@ -65,16 +65,33 @@ namespace ProjektZUS.Zakładki
 
                             double value;
                             // Walidacja zarobków
-                            if (double.TryParse(BruttoTextBox.Text.Substring(0, BruttoTextBox.Text.IndexOf(",") + 3), out value))
+                            if (BruttoTextBox.Text.Contains(","))
                             {
-                                sqlCmd.Parameters.AddWithValue("@BruttoPrac", value.ToString());
+                                if (double.TryParse(BruttoTextBox.Text.Substring(0, BruttoTextBox.Text.IndexOf(",") + 3), out value))
+                                {
+                                    sqlCmd.Parameters.AddWithValue("@BruttoPrac", value.ToString());
+                                }
+                                else
+                                {
+                                    reader.Close();
+                                    con.Close();
+                                    throw new BasicErrorException("Podano wartość zarobków, która nie jest liczbą");
+                                }
                             }
                             else
                             {
-                                reader.Close();
-                                con.Close();
-                                throw new BasicErrorException("Podano wartość zarobków, która nie jest liczbą");
+                                if (double.TryParse(BruttoTextBox.Text, out value))
+                                {
+                                    sqlCmd.Parameters.AddWithValue("@BruttoPrac", value.ToString());
+                                }
+                                else
+                                {
+                                    reader.Close();
+                                    con.Close();
+                                    throw new BasicErrorException("Podano wartość zarobków, która nie jest liczbą");
+                                }
                             }
+
                             sqlCmd.Parameters.AddWithValue("@UserIDPrac", StaticPomClass.UserID); // Przypisanie dla pracownika ID pracodawcy
                           
                             MessageBox.Show("Podany pracownik został pomyślnie dodany", "Info",
