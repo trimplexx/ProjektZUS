@@ -21,7 +21,10 @@ namespace ProjektZUS.Zakładki
         private string imie;
         private string nazwisko;
         private string pesel;
+
+        private string bruttoString;
         private double brutto;
+
         private double suma;
         private double zdrowotnaSUM;
         private List<string> Skladki = new List<string>();
@@ -57,10 +60,12 @@ namespace ProjektZUS.Zakładki
                             imie = reader.GetString(0);
                             nazwisko = reader.GetString(1);
                             pesel = reader.GetString(2);
-                            brutto = double.Parse(reader.GetString(3));
+                            bruttoString = reader.GetString(3);
                             reader.Close();
                             con.Close();
                         }
+
+                        brutto = double.Parse(bruttoString);
                         //Emerytalna 9,76% * Brutto
                         //Rentowa 1,5% * Brutto
                         //Chorobowa 2,45% * Brutto
@@ -87,7 +92,8 @@ namespace ProjektZUS.Zakładki
                         }
                         
 
-                    dgv1.Rows.Add(i + 1, imie, nazwisko, pesel, brutto, Skladki[0], Skladki[1], Skladki[2], Skladki[3], zdro, Skladki[4]);
+                    dgv1.Rows.Add(i + 1, imie, nazwisko, pesel, bruttoString.Substring(0, bruttoString.IndexOf(",") + 3) + " zł", Skladki[0] + " zł",
+                        Skladki[1] + " zł", Skladki[2] + " zł", Skladki[3] + " zł", Zdrowotna + " zł", Skladki[4] + " zł");
                         con.Close();
                     }
                 }

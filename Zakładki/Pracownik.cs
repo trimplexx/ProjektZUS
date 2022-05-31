@@ -64,10 +64,27 @@ namespace ProjektZUS.Zakładki
                             sqlCmd.Parameters.AddWithValue("@DowodPrac", DowodTextBox.Text.Trim());
 
                             double value;
-                            // Walidacja zarobków
+                            string text = string.Empty;
+                            // Walidacja zarobków, sprawdzenie w pierwszej kolejności czy wprowadzono przeciniek
                             if (BruttoTextBox.Text.Contains(","))
                             {
-                                if (double.TryParse(BruttoTextBox.Text.Substring(0, BruttoTextBox.Text.IndexOf(",") + 3), out value))
+                                // jeśli wprowadzono tylko przecinek i nic po nim to doda '001' aby w późniejszym wczytywaniu wzięło zera po przecinku
+                                int num = BruttoTextBox.Text.Length - BruttoTextBox.Text.IndexOf(",");
+                                if (num == 1)
+                                {
+                                    text = BruttoTextBox.Text + "001";
+                                }
+                                // analogicznie jeśli wpisano jedną wartość po przecinku dopisze '01' aby wzięło 0 we wczytywaniu
+                                else if (num == 2)
+                                {
+                                    text = BruttoTextBox.Text + "01";
+                                }
+                                // i gdy wpiszemy dwie wartości po przecinku dopisze do nich 1 
+                                else if (num == 3)
+                                {
+                                    text = BruttoTextBox.Text + "1";
+                                }
+                                if (double.TryParse(text.Substring(0, text.IndexOf(",") + 4), out value))
                                 {
                                     sqlCmd.Parameters.AddWithValue("@BruttoPrac", value.ToString());
                                 }
@@ -78,9 +95,12 @@ namespace ProjektZUS.Zakładki
                                     throw new BasicErrorException("Podano wartość zarobków, która nie jest liczbą");
                                 }
                             }
+
                             else
                             {
-                                if (double.TryParse(BruttoTextBox.Text, out value))
+                                // ustawienie przecinka i wartości 001 aby czytało ,00 w konwersji na double
+                                text = BruttoTextBox.Text + ",001";
+                                if (double.TryParse(text.Substring(0, text.IndexOf(",") + 4), out value))
                                 {
                                     sqlCmd.Parameters.AddWithValue("@BruttoPrac", value.ToString());
                                 }

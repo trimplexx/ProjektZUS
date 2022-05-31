@@ -83,6 +83,7 @@ namespace ProjektZUS
             ResetPomColumn("", "a"); // resetowanie kolumny pomocniczej w bazie danych
             for (int i = 0; i < NumerOfWorkers; i++)
             {
+                ResetPomColumn($"and PeselPrac='{PeselPracownika}'", "z");
                 GetData();
                 ResetPomColumn($"and PeselPrac='{PeselPracownika}'", "z");
             }
