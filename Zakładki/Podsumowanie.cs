@@ -22,8 +22,8 @@ namespace ProjektZUS.Zakładki
         private string nazwisko;
         private string pesel;
         private double brutto;
-        private double suma=0;
-        private double zdrowotnaSUM=0;
+        private double suma;
+        private double zdrowotnaSUM;
         private List<string> Skladki = new List<string>();
         double [] procety = new double[5] {0.0976, 0.015, 0.0245, 0.0167, 0.0245};
 
@@ -121,17 +121,20 @@ namespace ProjektZUS.Zakładki
         //Koszty pracodawcy+Koszty Pracownika
         private void PayTextBoxes()
         {
-            double UserSum = suma * 0.2038; // suma dla pracodawcy
-            string pomString = UserSum.ToString();
-            UserPay.Text = pomString.Substring(0, pomString.IndexOf(",") + 3) + " zł";
+            if(suma != 0 || zdrowotnaSUM != 0)
+            {
+                double UserSum = suma * 0.2038; // suma dla pracodawcy
+                string pomString = UserSum.ToString();
+                UserPay.Text = pomString.Substring(0, pomString.IndexOf(",") + 3) + " zł";
 
-            double WorkerSum = (0.1371 * suma) + zdrowotnaSUM;
-            pomString = WorkerSum.ToString();
-            WorkerPay.Text = pomString.Substring(0, pomString.IndexOf(",") + 3) + " zł";
+                double WorkerSum = (0.1371 * suma) + zdrowotnaSUM;
+                pomString = WorkerSum.ToString();
+                WorkerPay.Text = pomString.Substring(0, pomString.IndexOf(",") + 3) + " zł";
 
-            double razem = UserSum + WorkerSum;
-            pomString= razem.ToString();
-            Sum.Text = pomString.Substring(0, pomString.IndexOf(",") + 3) + " zł";
+                double razem = UserSum + WorkerSum;
+                pomString = razem.ToString();
+                Sum.Text = pomString.Substring(0, pomString.IndexOf(",") + 3) + " zł";
+            }
         }
     }
 }
