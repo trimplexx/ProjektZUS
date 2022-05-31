@@ -22,8 +22,8 @@ namespace ProjektZUS.Zakładki
         private string nazwisko;
         private string pesel;
         private double brutto;
-        private double suma;
-        private double zdrowotnaSUM;
+        private double suma=0;
+        private double zdrowotnaSUM=0;
         private List<string> Skladki = new List<string>();
         double [] procety = new double[5] {0.0976, 0.015, 0.0245, 0.0167, 0.0245};
 
