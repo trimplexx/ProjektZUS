@@ -24,9 +24,10 @@ namespace ProjektZUS.Zakładki
         private double brutto;
         private double suma;
         private double zdrowotnaSUM;
+        private List<string> Skladki = new List<string>();
+        double [] procety = new double[5] {0.0976, 0.015, 0.0245, 0.0167, 0.0245};
 
 
-        public List<double> Zarobki = new List<double>();
         public Podsumowanie()
         {
             InitializeComponent();
@@ -69,11 +70,24 @@ namespace ProjektZUS.Zakładki
                         //Brutto - zmienna = zmienna2
                         //Zmienna2 * 9% = wynikzdrowotnej
                         //Funduesz Pracy Brutto * 2,45%
+                        
                         suma += brutto;
-                        double zdrowotna = (brutto - (brutto * 0.1371)) * 0.09;
-                        zdrowotnaSUM += zdrowotna;
-                        dgv1.Rows.Add(i + 1, imie, nazwisko, pesel, brutto, brutto * 0.0976, brutto * 0.015,
-                            brutto * 0.0245, brutto * 0.0167, zdrowotna, brutto * 0.0245);
+                        double zdro = (brutto - (brutto * 0.1371)) * 0.09;
+                        string pomString = zdro.ToString();
+                        string Zdrowotna = pomString.Substring(0, pomString.IndexOf(",") + 3);
+                        zdrowotnaSUM += zdro;
+
+                        double JednaSkladka;
+                        Skladki.Clear();
+                        for (int j = 0; j < 5; j++)
+                        {
+                            JednaSkladka = brutto * procety[j]; // suma dla pracodawcy
+                            string pomSkladka = JednaSkladka.ToString();
+                            Skladki.Add(pomSkladka.Substring(0, pomSkladka.IndexOf(",") + 3));
+                        }
+                        
+
+                    dgv1.Rows.Add(i + 1, imie, nazwisko, pesel, brutto, Skladki[0], Skladki[1], Skladki[2], Skladki[3], zdro, Skladki[4]);
                         con.Close();
                     }
                 }
